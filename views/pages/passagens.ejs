@@ -1,0 +1,169 @@
+<%- include("../partials/header", { pagina: 'passagens' }) %>
+<%- include("../partials/menu") %>
+
+<main>
+    <!-- ===== Busca ===== -->
+    <section class="search" id="busca" aria-labelledby="search-title">
+      <section class="search-inner">
+        <h1 id="search-title" class="search-title">Passagens aéreas</h1>
+
+        <form class="search-form" id="searchForm" novalidate>
+          <fieldset class="trip-type">
+            <legend class="sr-only">Tipo de viagem</legend>
+            <label class="radio"><input type="radio" name="trip" value="ida-volta" checked /> Ida e volta</label>
+            <label class="radio"><input type="radio" name="trip" value="so-ida" /> Só ida</label>
+          </fieldset>
+
+          <section class="search-row">
+            <p class="field field--swap">
+              <label for="origem">Origem</label>
+              <input type="text" id="origem" name="origem" placeholder="De onde você sai?" autocomplete="off" required />
+              <span class="field-error" data-error-for="origem" role="alert"></span>
+            </p>
+
+            <button type="button" class="swap" id="swapBtn" aria-label="Inverter origem e destino">⇄</button>
+
+            <p class="field">
+              <label for="destino">Destino</label>
+              <input type="text" id="destino" name="destino" placeholder="Para onde você vai?" autocomplete="off" required />
+              <span class="field-error" data-error-for="destino" role="alert"></span>
+            </p>
+
+            <p class="field">
+              <label for="ida">Ida</label>
+              <input type="date" id="ida" name="ida" required />
+              <span class="field-error" data-error-for="ida" role="alert"></span>
+            </p>
+
+            <p class="field" id="voltaWrap">
+              <label for="volta">Volta</label>
+              <input type="date" id="volta" name="volta" />
+              <span class="field-error" data-error-for="volta" role="alert"></span>
+            </p>
+
+            <p class="field field--pax">
+              <label for="pax">Pessoas</label>
+              <input type="number" id="pax" name="pax" min="1" max="9" value="1" required />
+            </p>
+
+            <button type="submit" class="btn btn--search">Buscar</button>
+          </section>
+
+          <p class="search-status" id="searchStatus" role="status"></p>
+        </form>
+      </section>
+    </section>
+
+    <!-- ===== Resultados de voos ===== -->
+    <section class="flights is-hidden" id="flights" aria-labelledby="flights-title" aria-live="polite">
+      <section class="flights-inner">
+        <header class="flights-head">
+          <h2 id="flights-title">Voos encontrados</h2>
+          <section class="flights-filters" role="group" aria-label="Ordenar voos">
+            <button type="button" class="flight-filter is-active" data-sort="preco">Mais barato</button>
+            <button type="button" class="flight-filter" data-sort="duracao">Mais rápido</button>
+            <button type="button" class="flight-filter" data-sort="carbono">Menos carbono</button>
+          </section>
+        </header>
+        <p class="flights-route" id="flightsRoute"></p>
+        <section class="flight-list" id="flightList" role="list"></section>
+      </section>
+    </section>
+
+    <!-- ===== Estado inicial (antes de buscar) ===== -->
+    <section class="flights-intro" id="flightsIntro">
+      <section class="flights-intro-inner">
+
+        <!-- Destinos populares -->
+        <header class="block-head">
+          <h2>Destinos populares</h2>
+          <p>Toque em um destino para ver os voos saindo de São Paulo.</p>
+        </header>
+        <section class="popular-grid" id="popularGrid" aria-label="Destinos populares"></section>
+
+        <!-- Ofertas de voos -->
+        <header class="block-head block-head--mt">
+          <h2>Ofertas de voos</h2>
+          <p>Tarifas promocionais em rotas selecionadas. Valores por trecho, sujeitos a disponibilidade.</p>
+        </header>
+        <section class="deal-grid">
+          <article class="deal-card">
+            <p class="deal-route">São Paulo → Rio de Janeiro</p>
+            <p class="deal-price">R$ <strong>113</strong></p>
+            <p class="deal-note">4x sem juros · ida e volta a partir de R$ 452</p>
+          </article>
+          <article class="deal-card">
+            <p class="deal-route">São Paulo → Salvador</p>
+            <p class="deal-price">R$ <strong>324</strong></p>
+            <p class="deal-note">Direto · bagagem de mão inclusa</p>
+          </article>
+          <article class="deal-card">
+            <p class="deal-route">Rio de Janeiro → Recife</p>
+            <p class="deal-price">R$ <strong>389</strong></p>
+            <p class="deal-note">1 escala · tarifa econômica</p>
+          </article>
+          <article class="deal-card">
+            <p class="deal-route">Porto Alegre → Florianópolis</p>
+            <p class="deal-price">R$ <strong>198</strong></p>
+            <p class="deal-note">Direto · voo de 1h</p>
+          </article>
+        </section>
+
+        <!-- Dicas -->
+        <header class="block-head block-head--mt">
+          <h2>Dicas para passagens mais baratas</h2>
+        </header>
+        <section class="tips-grid">
+          <article class="tip">
+            <span class="tip-num">1</span>
+            <h3>Voe no meio da semana</h3>
+            <p>Terças e quartas costumam ter tarifas mais baixas que sextas e domingos.</p>
+          </article>
+          <article class="tip">
+            <span class="tip-num">2</span>
+            <h3>Reserve com antecedência</h3>
+            <p>Para voos nacionais, comprar de 4 a 8 semanas antes tende a render bons preços.</p>
+          </article>
+          <article class="tip">
+            <span class="tip-num">3</span>
+            <h3>Seja flexível nas datas</h3>
+            <p>Mudar a viagem em um ou dois dias pode reduzir bastante o valor da passagem.</p>
+          </article>
+          <article class="tip">
+            <span class="tip-num">4</span>
+            <h3>Considere aeroportos próximos</h3>
+            <p>Sair ou chegar por um aeroporto alternativo às vezes sai mais em conta.</p>
+          </article>
+        </section>
+
+        <!-- FAQ -->
+        <header class="block-head block-head--mt">
+          <h2>Perguntas frequentes</h2>
+        </header>
+        <section class="faq">
+          <details class="faq-item">
+            <summary>A bagagem está inclusa na passagem?</summary>
+            <p>A mala de mão está inclusa em todas as tarifas. A bagagem despachada aparece destacada em cada voo: alguns já incluem, outros cobram à parte.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Como funciona o cashback dos voos?</summary>
+            <p>Ao salvar um voo no seu perfil, você acumula 5% do valor como saldo, que pode ser usado em viagens futuras. O saldo aparece no seu perfil.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Posso escolher o assento?</summary>
+            <p>Depende da tarifa. Cada voo indica se a escolha de assento está inclusa ou se o assento é definido no momento do check-in.</p>
+          </details>
+          <details class="faq-item">
+            <summary>O que significa a estimativa de carbono?</summary>
+            <p>É uma estimativa da emissão de CO₂ por passageiro naquele voo, para ajudar você a comparar o impacto ambiental entre as opções.</p>
+          </details>
+        </section>
+
+      </section>
+    </section>
+  </main>
+
+<script src="/js/packages-data.js" defer></script>
+<script src="/js/flights.js" defer></script>
+<script src="/js/search-page.js" defer></script>
+<%- include("../partials/footer") %>

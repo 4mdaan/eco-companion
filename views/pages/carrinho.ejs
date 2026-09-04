@@ -1,0 +1,55 @@
+<%- include('../partials/header', { pagina: 'carrinho' }) %>
+<%- include('../partials/menu') %>
+
+<main class="account is-profile" id="conteudo">
+  <header class="account-head">
+    <p class="eyebrow">Carrinho</p>
+    <h1>Seu carrinho</h1>
+  </header>
+
+  <% if (!itens.length) { %>
+    <section class="cart-empty">
+      <p>Seu carrinho está vazio.</p>
+      <a class="btn btn--accent" href="/#pacotes">Ver pacotes</a>
+    </section>
+  <% } else { %>
+    <section class="cart-layout">
+      <section class="cart-items">
+        <% itens.forEach(function (item) { %>
+          <article class="cart-item">
+            <section class="cart-item-info">
+              <span class="cart-item-tag"><%= item.tipo === 'voo' ? 'VOO' : 'PACOTE' %></span>
+              <h2 class="cart-item-name"><%= item.nome %></h2>
+              <p class="cart-item-meta"><%= item.meta %></p>
+            </section>
+            <section class="cart-qty" data-item="<%= item.id %>">
+              <button type="button" class="cart-qty-btn" data-delta="-1" aria-label="Diminuir">−</button>
+              <span class="cart-qty-value"><%= item.quantidade %></span>
+              <button type="button" class="cart-qty-btn" data-delta="1" aria-label="Aumentar">+</button>
+            </section>
+            <p class="cart-item-price" data-price-for="<%= item.id %>">R$ <%= formatBRL(item.preco * item.quantidade) %></p>
+            <form method="POST" action="/carrinho/remover/<%= item.id %>" class="cart-item-remove">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+              <button type="submit" class="saved-remove" aria-label="Remover item">Remover</button>
+            </form>
+          </article>
+        <% }) %>
+      </section>
+
+      <aside class="cart-summary">
+        <h2>Resumo</h2>
+        <dl class="cart-summary-list">
+          <dt>Itens</dt><dd id="cartCount"><%= contagem %></dd>
+          <dt>Subtotal</dt><dd id="cartSubtotal">R$ <%= formatBRL(total) %></dd>
+          <dt>Taxas</dt><dd>Inclusas</dd>
+        </dl>
+        <p class="cart-total"><span>Total</span> <strong id="cartTotal">R$ <%= formatBRL(total) %></strong></p>
+        <a class="btn btn--accent btn--full" href="/checkout">Ir para o pagamento</a>
+        <a class="cart-continue" href="/#pacotes">Continuar comprando</a>
+      </aside>
+    </section>
+  <% } %>
+</main>
+
+<script src="/js/cart.js" defer></script>
+<%- include('../partials/footer') %>

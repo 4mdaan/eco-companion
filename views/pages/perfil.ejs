@@ -1,0 +1,149 @@
+<%- include('../partials/header', { pagina: 'perfil' }) %>
+<%- include('../partials/menu') %>
+
+<main class="account is-profile" id="conteudo">
+  <section class="profile">
+    <header class="profile-head">
+      <span class="avatar" aria-hidden="true"><%= usuario.nome.charAt(0).toUpperCase() %></span>
+      <section class="profile-id">
+        <p class="eyebrow">Perfil</p>
+        <h1>Olá, <%= usuario.nome %></h1>
+        <p class="profile-email"><%= usuario.email %></p>
+      </section>
+      <span class="points-badge"><%= usuario.pontos %> pontos</span>
+      <form method="POST" action="/sair" style="margin:0">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <button class="btn btn--ghost" type="submit">Sair</button>
+      </form>
+    </header>
+
+    <section class="cashback-panel">
+      <section class="cashback-info">
+        <p class="eyebrow">Cashback Companion</p>
+        <h2>Seu saldo</h2>
+        <p class="cashback-amount">R$ <%= Number(usuario.cashback).toFixed(2).replace('.', ',') %></p>
+        <p class="cashback-note">Você recebe 5% de volta em cada pacote ou voo salvo. Use o saldo como desconto nas próximas viagens.</p>
+      </section>
+      <section class="cashback-action">
+        <form method="POST" action="/perfil/resgatar" style="margin:0">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+          <button class="btn btn--accent" type="submit" <%= Number(usuario.cashback) <= 0 ? 'disabled' : '' %>>Resgatar saldo</button>
+        </form>
+        <% if (status === 'resgatado') { %><p class="cashback-status">Saldo resgatado! (demonstração)</p><% } %>
+      </section>
+    </section>
+
+    <section class="profile-grid">
+      <article class="panel">
+        <h2>Dados da conta</h2>
+        <form class="form" method="POST" action="/perfil" novalidate>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+          <p class="form-field">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" value="<%= usuario.nome %>" required minlength="2" />
+          </p>
+          <p class="form-field">
+            <label for="cidade">Cidade base</label>
+            <input type="text" id="cidade" name="cidade" value="<%= usuario.cidade || '' %>" />
+          </p>
+          <p class="form-field">
+            <label for="estilo">Estilo de viagem</label>
+            <select id="estilo" name="estilo">
+              <option value="praia" <%= usuario.estilo === 'praia' ? 'selected' : '' %>>Praia e litoral</option>
+              <option value="trilha" <%= usuario.estilo === 'trilha' ? 'selected' : '' %>>Trilhas e natureza</option>
+              <option value="cidade" <%= usuario.estilo === 'cidade' ? 'selected' : '' %>>Cidades e cultura</option>
+              <option value="familia" <%= usuario.estilo === 'familia' ? 'selected' : '' %>>Viagem em família</option>
+            </select>
+          </p>
+          <button class="btn btn--accent" type="submit">Salvar alterações</button>
+          <% if (status === 'salvo') { %><span class="form-status">Alterações salvas.</span><% } %>
+          <% if (status === 'erro') { %><span class="field-error">Informe um nome válido.</span><% } %>
+        </form>
+      </article>
+
+      <article class="panel">
+        <h2>Buscas salvas</h2>
+        <% if (buscas.length) { %>
+          <ul class="saved-list">
+            <% buscas.forEach(function (b) { %>
+              <li class="saved-item">
+                <span><span class="saved-item-name"><%= b.nome %></span><br><span class="saved-item-meta"><%= b.meta %></span></span>
+                <form method="POST" action="/perfil/remover/<%= b.id %>" style="margin:0">
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                  <button class="saved-remove" type="submit">Remover</button>
+                </form>
+              </li>
+            <% }) %>
+          </ul>
+        <% } else { %>
+          <p class="empty-state">Nenhuma busca salva ainda.</p>
+        <% } %>
+      </article>
+
+      <article class="panel panel--wide">
+        <h2>Pacotes salvos</h2>
+        <% if (pacotes.length) { %>
+          <ul class="saved-list">
+            <% pacotes.forEach(function (p) { %>
+              <li class="saved-item">
+                <span><span class="saved-item-name"><%= p.nome %></span><br><span class="saved-item-meta"><%= p.meta %></span></span>
+                <form method="POST" action="/perfil/remover/<%= p.id %>" style="margin:0">
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                  <button class="saved-remove" type="submit">Remover</button>
+                </form>
+              </li>
+            <% }) %>
+          </ul>
+        <% } else { %>
+          <p class="empty-state">Você ainda não salvou pacotes. Abra a página inicial e salve um pacote.</p>
+        <% } %>
+      </article>
+
+      <article class="panel panel--wide">
+        <h2>Voos salvos</h2>
+        <% if (voos.length) { %>
+          <ul class="saved-list">
+            <% voos.forEach(function (v) { %>
+              <li class="saved-item">
+                <span><span class="saved-item-name"><%= v.nome %></span><br><span class="saved-item-meta"><%= v.meta %></span></span>
+                <form method="POST" action="/perfil/remover/<%= v.id %>" style="margin:0">
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                  <button class="saved-remove" type="submit">Remover</button>
+                </form>
+              </li>
+            <% }) %>
+          </ul>
+        <% } else { %>
+          <p class="empty-state">Nenhum voo salvo ainda. Faça uma busca em Passagens e salve um voo.</p>
+        <% } %>
+      </article>
+    </section>
+
+    <section class="profile-orders">
+      <h2>Histórico de pedidos</h2>
+      <% if (!pedidos.length) { %>
+        <p class="empty-state">Você ainda não fez nenhum pedido. Adicione itens ao carrinho e finalize uma compra.</p>
+      <% } else { %>
+        <% pedidos.forEach(function (pedido) { %>
+          <article class="order-card">
+            <header class="order-card-head">
+              <span class="order-card-id">Pedido #<%= pedido.id %></span>
+              <span class="order-card-date"><%= new Date(pedido.criado_em).toLocaleDateString('pt-BR') %></span>
+              <span class="order-card-total">R$ <%= formatBRL(pedido.total) %></span>
+            </header>
+            <ul class="order-card-items">
+              <% pedido.itens.forEach(function (it) { %>
+                <li><%= it.nome %><% if (it.quantidade > 1) { %> ×<%= it.quantidade %><% } %> — R$ <%= formatBRL(it.preco * (it.quantidade || 1)) %></li>
+              <% }) %>
+            </ul>
+            <footer class="order-card-foot">
+              Pagamento: <%= pedido.pagamento === 'pix' ? 'Pix' : 'Cartão' %> · <span class="order-card-status">Confirmado</span>
+            </footer>
+          </article>
+        <% }) %>
+      <% } %>
+    </section>
+  </section>
+</main>
+
+<%- include('../partials/footer') %>

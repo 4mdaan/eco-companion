@@ -1,0 +1,75 @@
+<%- include('../partials/header', { pagina: 'carrinho' }) %>
+<%- include('../partials/menu') %>
+
+<main class="account is-profile" id="conteudo">
+  <header class="account-head">
+    <p class="eyebrow">Pagamento</p>
+    <h1>Finalizar compra</h1>
+  </header>
+
+  <section class="checkout-note">
+    Este é um checkout de demonstração. <strong>Não digite dados de cartão reais.</strong> Nenhuma cobrança é feita e nenhum dado de pagamento é armazenado.
+  </section>
+
+  <section class="cart-layout">
+    <section class="checkout-form">
+      <form method="POST" action="/checkout" id="checkoutForm">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <h2 class="checkout-h2">Forma de pagamento</h2>
+        <section class="pay-methods">
+          <label class="pay-method">
+            <input type="radio" name="pagamento" value="cartao" checked />
+            <span>Cartão de crédito</span>
+          </label>
+          <label class="pay-method">
+            <input type="radio" name="pagamento" value="pix" />
+            <span>Pix</span>
+          </label>
+        </section>
+
+        <section class="pay-fields" id="cardFields">
+          <p class="form-field">
+            <label for="cardName">Nome no cartão</label>
+            <input type="text" id="cardName" name="cardName" placeholder="Nome de demonstração" autocomplete="off" />
+          </p>
+          <p class="form-field">
+            <label for="cardNum">Número do cartão</label>
+            <input type="text" id="cardNum" name="cardNum" placeholder="0000 0000 0000 0000" inputmode="numeric" maxlength="19" autocomplete="off" />
+          </p>
+          <section class="pay-row">
+            <p class="form-field">
+              <label for="cardExp">Validade</label>
+              <input type="text" id="cardExp" name="cardExp" placeholder="MM/AA" maxlength="5" autocomplete="off" />
+            </p>
+            <p class="form-field">
+              <label for="cardCvv">CVV</label>
+              <input type="text" id="cardCvv" name="cardCvv" placeholder="123" maxlength="4" inputmode="numeric" autocomplete="off" />
+            </p>
+          </section>
+        </section>
+
+        <section class="pay-fields is-hidden" id="pixFields">
+          <p class="pix-info">Ao confirmar, um código Pix de demonstração seria gerado. Nenhum pagamento real é processado.</p>
+        </section>
+
+        <button type="submit" class="btn btn--accent btn--full">Pagar R$ <%= formatBRL(total) %></button>
+      </form>
+    </section>
+
+    <aside class="cart-summary">
+      <h2>Resumo do pedido</h2>
+      <ul class="checkout-items">
+        <% itens.forEach(function (item) { %>
+          <li>
+            <span><%= item.nome %><% if (item.quantidade > 1) { %> ×<%= item.quantidade %><% } %></span>
+            <span>R$ <%= formatBRL(item.preco * item.quantidade) %></span>
+          </li>
+        <% }) %>
+      </ul>
+      <p class="cart-total"><span>Total</span> <strong>R$ <%= formatBRL(total) %></strong></p>
+    </aside>
+  </section>
+</main>
+
+<script src="/js/checkout.js" defer></script>
+<%- include('../partials/footer') %>

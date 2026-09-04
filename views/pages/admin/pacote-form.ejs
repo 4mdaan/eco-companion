@@ -1,0 +1,100 @@
+<%- include('../../partials/header', { pagina: 'admin' }) %>
+<%- include('../../partials/menu') %>
+
+<% var editar = pacote !== null; %>
+<% var acao = editar ? ('/admin/pacotes/' + pacote.id + '/editar') : '/admin/pacotes/novo'; %>
+<% function val(campo, padrao) { return editar && pacote[campo] !== undefined ? pacote[campo] : (padrao || ''); } %>
+<% function lista(campo) { return editar && Array.isArray(pacote[campo]) ? pacote[campo].join('\n') : ''; } %>
+
+<main class="admin admin--form" id="conteudo">
+  <header class="admin-head">
+    <p class="eyebrow">Administração</p>
+    <h1><%= editar ? 'Editar pacote' : 'Novo pacote' %></h1>
+    <p class="admin-sub"><%= editar ? pacote.title : 'Preencha os dados do novo destino.' %></p>
+  </header>
+
+  <%- include('../../partials/admin-nav', { pagina: 'pacotes' }) %>
+
+  <form class="admin-form" method="POST" action="<%= acao %>">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+
+    <section class="admin-form-grid">
+      <p class="form-field">
+        <label for="title">Título (destino)</label>
+        <input type="text" id="title" name="title" value="<%= val('title') %>" required maxlength="60" />
+      </p>
+      <p class="form-field">
+        <label for="price">Preço (R$)</label>
+        <input type="text" id="price" name="price" value="<%= val('price') %>" inputmode="numeric" required />
+      </p>
+      <p class="form-field">
+        <label for="nights">Duração</label>
+        <input type="text" id="nights" name="nights" value="<%= val('nights', '3 dias / 2 noites') %>" placeholder="4 dias / 3 noites" />
+      </p>
+      <p class="form-field">
+        <label for="from">Saída</label>
+        <input type="text" id="from" name="from" value="<%= val('from', 'Saindo de São Paulo') %>" />
+      </p>
+      <p class="form-field">
+        <label for="score">Nota (0 a 10)</label>
+        <input type="text" id="score" name="score" value="<%= val('score', '8.0') %>" />
+      </p>
+      <p class="form-field">
+        <label for="stars">Estrelas (1 a 5)</label>
+        <input type="number" id="stars" name="stars" value="<%= val('stars', 3) %>" min="1" max="5" />
+      </p>
+      <p class="form-field">
+        <label for="points">Pontos Companion</label>
+        <input type="number" id="points" name="points" value="<%= val('points', 0) %>" min="0" />
+      </p>
+      <p class="form-field">
+        <label for="deal">Selo de oferta (opcional)</label>
+        <input type="text" id="deal" name="deal" value="<%= val('deal') %>" placeholder="Oferta destaque" />
+      </p>
+    </section>
+
+    <p class="form-field">
+      <label for="summary">Resumo</label>
+      <textarea id="summary" name="summary" rows="2"><%= val('summary') %></textarea>
+    </p>
+    <p class="form-field">
+      <label for="impact">Ficha de impacto ambiental</label>
+      <textarea id="impact" name="impact" rows="2"><%= val('impact') %></textarea>
+    </p>
+
+    <section class="admin-form-grid">
+      <p class="form-field">
+        <label for="bestTime">Melhor época</label>
+        <input type="text" id="bestTime" name="bestTime" value="<%= val('bestTime') %>" />
+      </p>
+      <p class="form-field">
+        <label for="climate">Clima</label>
+        <input type="text" id="climate" name="climate" value="<%= val('climate') %>" />
+      </p>
+    </section>
+
+    <p class="form-field">
+      <label for="itinerary">Roteiro <span class="field-help">(um item por linha)</span></label>
+      <textarea id="itinerary" name="itinerary" rows="4"><%= lista('itinerary') %></textarea>
+    </p>
+    <p class="form-field">
+      <label for="includes">O que está incluso <span class="field-help">(um item por linha)</span></label>
+      <textarea id="includes" name="includes" rows="3"><%= lista('includes') %></textarea>
+    </p>
+    <p class="form-field">
+      <label for="notIncluded">Não está incluso <span class="field-help">(um item por linha)</span></label>
+      <textarea id="notIncluded" name="notIncluded" rows="3"><%= lista('notIncluded') %></textarea>
+    </p>
+    <p class="form-field">
+      <label for="highlights">Destaques <span class="field-help">(um item por linha)</span></label>
+      <textarea id="highlights" name="highlights" rows="3"><%= lista('highlights') %></textarea>
+    </p>
+
+    <section class="admin-form-actions">
+      <button type="submit" class="btn btn--accent"><%= editar ? 'Salvar alterações' : 'Criar pacote' %></button>
+      <a class="btn btn--ghost" href="/admin/pacotes">Cancelar</a>
+    </section>
+  </form>
+</main>
+
+<%- include('../../partials/footer') %>

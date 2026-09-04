@@ -1,0 +1,51 @@
+<%- include('../../partials/header', { pagina: 'admin' }) %>
+<%- include('../../partials/menu') %>
+
+<main class="admin" id="conteudo">
+  <header class="admin-head">
+    <p class="eyebrow">Administração</p>
+    <h1>Pedidos</h1>
+    <p class="admin-sub"><%= pedidos.length %> pedido(s) no total.</p>
+  </header>
+  <%- include('../../partials/admin-nav', { pagina: 'pedidos' }) %>
+
+  <% if (!pedidos.length) { %>
+    <p class="empty-state">Nenhum pedido realizado ainda.</p>
+  <% } else { %>
+    <section class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Comprador</th>
+            <th>Itens</th>
+            <th>Pagamento</th>
+            <th>Total</th>
+            <th>Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% pedidos.forEach(function (p) { %>
+            <tr>
+              <td>#<%= p.id %></td>
+              <td>
+                <span class="admin-td-strong"><%= p.comprador %></span><br>
+                <span class="admin-td-muted"><%= p.email %></span>
+              </td>
+              <td>
+                <% p.itens.forEach(function (it) { %>
+                  <span class="admin-item-line"><%= it.nome %><% if (it.quantidade > 1) { %> ×<%= it.quantidade %><% } %></span>
+                <% }) %>
+              </td>
+              <td><%= p.pagamento === 'pix' ? 'Pix' : 'Cartão' %></td>
+              <td class="admin-td-strong">R$ <%= formatBRL(p.total) %></td>
+              <td class="admin-td-muted"><%= new Date(p.criado_em).toLocaleDateString('pt-BR') %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
+  <% } %>
+</main>
+
+<%- include('../../partials/footer') %>

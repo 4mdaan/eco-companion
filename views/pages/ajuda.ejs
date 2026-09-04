@@ -1,0 +1,106 @@
+<%- include("../partials/header", { pagina: 'ajuda' }) %>
+<%- include("../partials/menu") %>
+
+<main class="help" id="conteudo">
+    <section class="help-hero">
+      <section class="help-hero-inner">
+        <p class="eyebrow">Central de ajuda</p>
+        <h1>Como podemos ajudar?</h1>
+        <p>Converse com o assistente ou veja as perguntas mais comuns abaixo.</p>
+      </section>
+    </section>
+
+    <section class="help-body">
+
+      <!-- ===== Chat com IA ===== -->
+      <section class="chat" aria-labelledby="chat-title">
+        <header class="chat-head">
+          <span class="chat-avatar" aria-hidden="true">EC</span>
+          <section class="chat-head-text">
+            <h2 id="chat-title">Assistente Eco Companion</h2>
+            <p>Tire dúvidas sobre conta, passagens, pacotes e cashback.</p>
+          </section>
+        </header>
+
+        <section class="chat-log" id="chatLog" aria-live="polite" aria-label="Conversa">
+          <!-- mensagens inseridas via JS -->
+        </section>
+
+        <section class="chat-suggestions" id="chatSuggestions" aria-label="Perguntas rápidas">
+          <button type="button" class="chat-chip">Como funciona o cashback?</button>
+          <button type="button" class="chat-chip">Como salvo um voo?</button>
+          <button type="button" class="chat-chip">O que está incluso nos pacotes?</button>
+        </section>
+
+        <form class="chat-form" id="chatForm">
+          <label for="chatInput" class="sr-only">Sua mensagem</label>
+          <input type="text" id="chatInput" placeholder="Escreva sua dúvida…" autocomplete="off" />
+          <button type="submit" class="btn btn--accent" id="chatSend">Enviar</button>
+        </form>
+        <p class="chat-disclaimer">As respostas são geradas por IA e podem conter imprecisões. Para casos específicos, fale com a equipe.</p>
+      </section>
+
+      <!-- ===== FAQ ===== -->
+      <section class="help-faq" aria-labelledby="faq-title">
+        <h2 id="faq-title">Perguntas frequentes</h2>
+
+        <h3 class="faq-cat">Conta</h3>
+        <section class="faq">
+          <details class="faq-item">
+            <summary>Como crio uma conta?</summary>
+            <p>Acesse a página "Minha conta", escolha a aba "Cadastrar" e informe nome, e-mail e senha. Nesta demonstração, os dados ficam apenas no seu navegador.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Esqueci o que salvei. Onde vejo?</summary>
+            <p>No seu perfil, você encontra as buscas salvas, pacotes salvos e voos salvos, além do saldo de cashback.</p>
+          </details>
+        </section>
+
+        <h3 class="faq-cat">Passagens</h3>
+        <section class="faq">
+          <details class="faq-item">
+            <summary>Como busco um voo?</summary>
+            <p>Na página de Passagens, informe origem, destino e datas e clique em "Buscar". Você também pode tocar em um destino popular para ver os voos na hora.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Como salvo um voo?</summary>
+            <p>Em cada voo dos resultados há o botão "Salvar voo". Ao salvar, ele vai para o seu perfil e gera cashback de 5%.</p>
+          </details>
+          <details class="faq-item">
+            <summary>O que é a estimativa de carbono?</summary>
+            <p>É uma estimativa da emissão de CO₂ por passageiro do voo, para você comparar o impacto ambiental entre as opções.</p>
+          </details>
+        </section>
+
+        <h3 class="faq-cat">Pacotes</h3>
+        <section class="faq">
+          <details class="faq-item">
+            <summary>O que está incluso nos pacotes?</summary>
+            <p>Cada pacote lista o que inclui (passagem, noites de hospedagem, traslados, passeios). Abra a página do pacote para ver os detalhes e o roteiro.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Como reservo um pacote?</summary>
+            <p>Na página do pacote, use o botão "Reservar". Nesta demonstração, a reserva é simulada — não há cobrança real.</p>
+          </details>
+        </section>
+
+        <h3 class="faq-cat">Cashback</h3>
+        <section class="faq">
+          <details class="faq-item">
+            <summary>Como funciona o cashback?</summary>
+            <p>Você recebe 5% do valor de cada pacote ou voo salvo como saldo. Ele aparece no seu perfil e pode ser resgatado pelo botão "Resgatar saldo".</p>
+          </details>
+          <details class="faq-item">
+            <summary>O saldo vira dinheiro de verdade?</summary>
+            <p>Não. Como é um projeto demonstrativo, o saldo não tem valor monetário real e o resgate é apenas simbólico.</p>
+          </details>
+        </section>
+
+        <p class="help-contact">Não encontrou o que procurava? Escreva para <a href="mailto:contato@ecocompanion.com">contato@ecocompanion.com</a> ou ligue para (21) 99999-8888.</p>
+      </section>
+
+    </section>
+  </main>
+
+<script src="/js/help-chat.js" defer></script>
+<%- include("../partials/footer") %>

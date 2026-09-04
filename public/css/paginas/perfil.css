@@ -1,0 +1,39 @@
+/* Estilos do perfil */
+
+.form-status { font-size: .9rem; color: var(--rating); min-height: 1em; }
+.profile-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.avatar { width: 60px; height: 60px; border-radius: 50%; background: var(--blue-500); color: #fff; display: grid; place-items: center; font-family: var(--font-display); font-size: 1.5rem; flex-shrink: 0; }
+.profile-id { flex: 1; min-width: 180px; }
+.profile-email { color: var(--ink-soft); }
+.points-badge { background: var(--blue-50); color: var(--blue-700); border: 1px solid var(--blue-100); font-weight: 600; font-size: .85rem; padding: .4rem .8rem; border-radius: 999px; }
+.profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow-sm); }
+.panel--wide { grid-column: 1 / -1; }
+.panel h2 { font-size: 1.2rem; margin-bottom: 1rem; }
+.saved-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .6rem; }
+.saved-item { display: flex; align-items: center; justify-content: space-between; gap: 1rem; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: .8rem 1rem; }
+.saved-item-name { font-weight: 600; color: var(--blue-900); }
+.saved-item-meta { font-size: .82rem; color: var(--ink-soft); }
+.cashback-panel {
+  display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+  background: var(--blue-800); color: #fff;
+  border-radius: var(--radius); padding: clamp(1.4rem, 3vw, 2rem);
+  margin-bottom: var(--gap); box-shadow: var(--shadow);
+}
+[data-theme="dark"] .cashback-panel { background: #11202e; border: 1px solid var(--line); }
+.cashback-info h2 { color: #fff; font-size: 1.2rem; margin-bottom: .3rem; }
+.cashback-amount { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 600; line-height: 1; margin: .2rem 0 .5rem; }
+.cashback-note { color: var(--blue-100); font-size: .9rem; max-width: 44ch; }
+.cashback-action { display: flex; flex-direction: column; align-items: flex-start; gap: .6rem; }
+.cashback-status { font-size: .88rem; color: #ffd98a; min-height: 1em; }
+.profile-orders { margin-top: 2rem; }
+.profile-orders > h2 { font-size: 1.3rem; margin-bottom: 1rem; }
+.order-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.2rem 1.4rem; box-shadow: var(--shadow-sm); margin-bottom: 1rem; }
+.order-card-head { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: .7rem; }
+.order-card-id { font-family: var(--font-display); font-weight: 600; color: var(--blue-900); }
+.order-card-date { color: var(--ink-soft); font-size: .85rem; }
+.order-card-total { margin-left: auto; font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--blue-900); }
+.order-card-items { list-style: none; margin: 0 0 .7rem; padding: 0; display: flex; flex-direction: column; gap: .3rem; }
+.order-card-items li { color: var(--ink); font-size: .9rem; }
+.order-card-foot { color: var(--ink-soft); font-size: .85rem; border-top: 1px solid var(--line); padding-top: .6rem; }
+.order-card-status { color: var(--rating); font-weight: 600; }

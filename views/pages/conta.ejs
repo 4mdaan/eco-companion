@@ -1,0 +1,95 @@
+<%- include('../partials/header', { pagina: 'conta' }) %>
+<%- include('../partials/menu') %>
+
+<main class="account account--auth" id="conteudo">
+  <section class="auth">
+    <span class="auth-bg" aria-hidden="true"></span>
+    <span class="auth-bg-overlay" aria-hidden="true"></span>
+
+    <section class="auth-card">
+      <header class="auth-card-head">
+        <a class="brand auth-card-brand" href="/">
+          <span class="brand-mark"></span>
+          <span class="brand-name">Eco Companion</span>
+        </a>
+        <h1>Acesse sua conta</h1>
+        <p class="auth-card-sub">Entre para continuar planejando suas viagens.</p>
+      </header>
+
+      <% if (erro) { %>
+        <p class="auth-erro" role="alert"><%= erro %></p>
+      <% } %>
+
+      <section class="tabs" role="tablist" aria-label="Entrar ou cadastrar">
+        <button class="tab <%= aba === 'login' ? 'is-active' : '' %>" id="tabLogin" type="button">Entrar</button>
+        <button class="tab <%= aba === 'cadastro' ? 'is-active' : '' %>" id="tabSignup" type="button">Cadastrar</button>
+      </section>
+
+      <section class="auth-social" aria-label="Entrar com redes sociais">
+        <button type="button" class="social-btn" aria-label="Entrar com Google">G</button>
+        <button type="button" class="social-btn" aria-label="Entrar com Facebook">f</button>
+        <button type="button" class="social-btn" aria-label="Entrar com Apple">in</button>
+        <p class="auth-divider"><span>ou use seu e-mail</span></p>
+      </section>
+
+      <!-- LOGIN (envia ao backend) -->
+      <form class="form auth-form <%= aba === 'cadastro' ? 'is-hidden' : '' %>" id="loginForm" method="POST" action="/entrar" novalidate>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <p class="form-field">
+          <label for="loginEmail">E-mail</label>
+          <span class="input-wrap">
+            <span class="input-ic" aria-hidden="true">✉</span>
+            <input type="email" id="loginEmail" name="email" autocomplete="email" placeholder="voce@email.com" required />
+          </span>
+        </p>
+        <p class="form-field">
+          <label for="loginPassword">Senha</label>
+          <span class="input-wrap">
+            <span class="input-ic" aria-hidden="true">🔒</span>
+            <input type="password" id="loginPassword" name="senha" autocomplete="current-password" placeholder="Sua senha" required minlength="8" />
+            <button type="button" class="input-toggle" data-toggle="loginPassword" aria-label="Mostrar senha">Mostrar</button>
+          </span>
+        </p>
+        <p class="auth-row">
+          <label class="auth-remember"><input type="checkbox" name="lembrar" /> Lembrar de mim</label>
+          <a class="auth-forgot" href="#">Esqueci minha senha</a>
+        </p>
+        <button class="btn btn--accent btn--full" type="submit">Entrar</button>
+      </form>
+
+      <!-- CADASTRO (envia ao backend) -->
+      <form class="form auth-form <%= aba === 'cadastro' ? '' : 'is-hidden' %>" id="signupForm" method="POST" action="/cadastrar" novalidate>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <p class="form-field">
+          <label for="signupName">Nome</label>
+          <span class="input-wrap">
+            <span class="input-ic" aria-hidden="true">👤</span>
+            <input type="text" id="signupName" name="nome" autocomplete="name" placeholder="Seu nome" required minlength="2" />
+          </span>
+        </p>
+        <p class="form-field">
+          <label for="signupEmail">E-mail</label>
+          <span class="input-wrap">
+            <span class="input-ic" aria-hidden="true">✉</span>
+            <input type="email" id="signupEmail" name="email" autocomplete="email" placeholder="voce@email.com" required />
+          </span>
+        </p>
+        <p class="form-field">
+          <label for="signupPassword">Senha</label>
+          <span class="input-wrap">
+            <span class="input-ic" aria-hidden="true">🔒</span>
+            <input type="password" id="signupPassword" name="senha" autocomplete="new-password" placeholder="Crie uma senha" required minlength="8" />
+            <button type="button" class="input-toggle" data-toggle="signupPassword" aria-label="Mostrar senha">Mostrar</button>
+          </span>
+          <span class="field-help">Use ao menos 8 caracteres.</span>
+        </p>
+        <button class="btn btn--accent btn--full" type="submit">Criar conta gratuita</button>
+        <p class="form-hint">Ao criar a conta, você concorda com os <a href="/termos">Termos</a> e a <a href="/privacidade">Privacidade</a>.</p>
+      </form>
+    </section>
+  </section>
+</main>
+
+<script src="/js/auth-tabs.js" defer></script>
+<%- include('../partials/footer') %>
+

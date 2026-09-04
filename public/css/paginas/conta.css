@@ -1,0 +1,53 @@
+/* Estilos de login e cadastro */
+
+.account--auth { max-width: none; padding: 0; width: 100%; }
+.auth {
+  position: relative; width: 100%; min-height: calc(100vh - 130px);
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(1.5rem, 4vw, 3rem) var(--gap); overflow: hidden;
+}
+.auth-bg {
+  position: absolute; inset: 0;
+  background: url("/img/rio.jpg") center/cover no-repeat;
+  transform: scale(1.05);
+}
+.auth-bg-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(120deg, rgba(12,58,94,.82), rgba(20,80,127,.6));
+}
+.auth-card {
+  position: relative; z-index: 1; width: 100%; max-width: 440px;
+  background: var(--surface); border-radius: calc(var(--radius) + 6px);
+  box-shadow: 0 18px 50px rgba(0,0,0,.35);
+  padding: clamp(1.8rem, 4vw, 2.6rem);
+}
+.auth-card-head { text-align: center; margin-bottom: 1.4rem; }
+.auth-card-brand { justify-content: center; margin-bottom: 1.2rem; color: var(--blue-900); }
+.auth-card-head h1 { font-size: clamp(1.5rem, 3vw, 1.9rem); }
+.auth-card-sub { color: var(--ink-soft); margin-top: .4rem; font-size: .95rem; }
+.auth-card .tabs { display: flex; width: 100%; margin-bottom: 1.4rem; }
+.auth-card .tab { flex: 1; }
+.auth-social { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; margin-bottom: 1.2rem; }
+.social-btn { width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--surface); color: var(--blue-700); font-weight: 700; font-size: 1rem; cursor: pointer; transition: border-color .18s ease, background-color .18s ease, transform .18s ease; }
+.social-btn:hover { border-color: var(--blue-300); background: var(--blue-50); transform: translateY(-2px); }
+.auth-divider { flex-basis: 100%; display: flex; align-items: center; gap: .8rem; color: var(--ink-soft); font-size: .82rem; margin: .6rem 0 0; }
+.auth-divider::before, .auth-divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.auth-form { gap: 1.1rem; }
+.input-wrap { position: relative; display: flex; align-items: center; }
+.input-ic { position: absolute; left: .85rem; font-size: .95rem; opacity: .6; pointer-events: none; }
+.input-wrap input { width: 100%; padding: .75rem .9rem .75rem 2.4rem; border: 1.5px solid var(--line); border-radius: var(--radius-sm); font: inherit; background: var(--surface); color: var(--ink); transition: border-color .18s ease, box-shadow .18s ease; }
+.input-wrap input:focus { outline: none; border-color: var(--blue-500); box-shadow: 0 0 0 3px var(--blue-50); }
+.input-wrap input[aria-invalid="true"] { border-color: #c0392b; }
+.input-toggle { position: absolute; right: .6rem; font: inherit; font-size: .82rem; font-weight: 600; background: transparent; border: 0; color: var(--blue-700); cursor: pointer; padding: .3rem .4rem; border-radius: 6px; }
+.input-toggle:hover { background: var(--blue-50); }
+.auth-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 0; flex-wrap: wrap; }
+.auth-remember { display: inline-flex; align-items: center; gap: .4rem; font-size: .9rem; color: var(--ink-soft); cursor: pointer; }
+.auth-remember input { accent-color: var(--blue-500); }
+.auth-forgot { font-size: .9rem; color: var(--blue-700); text-decoration: none; }
+.auth-forgot:hover { text-decoration: underline; }
+.auth-form .form-hint a { color: var(--blue-700); }
+.auth-erro { background: #fbeae8; color: #c0392b; border: 1px solid #e6cfc9; border-radius: var(--radius-sm); padding: .7rem 1rem; font-size: .9rem; margin-bottom: 1rem; text-align: center; }
+[data-theme="dark"] .auth-erro { background: #33231f; border-color: #4a342d; color: #e0a99c; }
+.tabs { display: inline-flex; background: var(--blue-50); border: 1px solid var(--line); border-radius: 999px; padding: 4px; margin-bottom: 1.4rem; }
+.tab { font: inherit; font-weight: 600; border: 0; background: transparent; color: var(--ink-soft); padding: .5rem 1.2rem; border-radius: 999px; cursor: pointer; transition: background-color .18s ease, color .18s ease; }
+.form-hint { color: var(--ink-soft); font-size: .85rem; text-align: center; }

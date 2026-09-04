@@ -1,0 +1,53 @@
+<%- include('../../partials/header', { pagina: 'admin' }) %>
+<%- include('../../partials/menu') %>
+
+<main class="admin" id="conteudo">
+  <header class="admin-head">
+    <p class="eyebrow">Administração</p>
+    <h1>Pacotes</h1>
+    <p class="admin-sub"><%= pacotes.length %> destino(s) no catálogo.</p>
+  </header>
+
+  <%- include('../../partials/admin-nav', { pagina: 'pacotes' }) %>
+
+  <% if (status === 'criado') { %><p class="admin-flash">Pacote criado com sucesso.</p><% } %>
+  <% if (status === 'atualizado') { %><p class="admin-flash">Pacote atualizado.</p><% } %>
+  <% if (status === 'excluido') { %><p class="admin-flash">Pacote excluído.</p><% } %>
+
+  <section class="admin-toolbar">
+    <a class="btn btn--accent" href="/admin/pacotes/novo">+ Novo pacote</a>
+  </section>
+
+  <section class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Destino</th>
+          <th>Duração</th>
+          <th>Preço</th>
+          <th>Nota</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% pacotes.forEach(function (p) { %>
+          <tr>
+            <td class="admin-td-strong"><%= p.title %></td>
+            <td><%= p.nights %></td>
+            <td class="admin-td-strong">R$ <%= p.price %></td>
+            <td><%= p.score %> ★</td>
+            <td class="admin-actions">
+              <a class="admin-action-edit" href="/admin/pacotes/<%= p.id %>/editar">Editar</a>
+              <form method="POST" action="/admin/pacotes/<%= p.id %>/excluir" onsubmit="return confirm('Excluir o pacote &quot;<%= p.title %>&quot;? Esta ação não pode ser desfeita.');" style="display:inline;margin:0">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <button type="submit" class="admin-action-del">Excluir</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </section>
+</main>
+
+<%- include('../../partials/footer') %>

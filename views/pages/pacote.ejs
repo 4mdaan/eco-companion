@@ -1,0 +1,128 @@
+<%- include('../partials/header', { pagina: 'pacote' }) %>
+<%- include('../partials/menu') %>
+
+<main class="pkgpage" id="conteudo">
+  <nav class="breadcrumb" aria-label="Você está em">
+    <a href="/">Início</a> <span aria-hidden="true">›</span>
+    <a href="/#pacotes">Pacotes</a> <span aria-hidden="true">›</span>
+    <span aria-current="page"><%= pacote.title %></span>
+  </nav>
+
+  <section class="pkg-hero" style="background: <%= pacote.art %>">
+    <% if (pacote.image) { %><img class="pkg-hero-img" src="/img/<%= pacote.image.replace('assets/','') %>" alt="<%= pacote.title %>" /><% } %>
+    <span class="package-nights"><%= pacote.nights %></span>
+  </section>
+
+  <section class="pkg-head">
+    <section class="pkg-head-main">
+      <span class="package-kicker">PACOTE · HOTEL + AÉREO</span>
+      <h1><%= pacote.title %></h1>
+      <span class="package-rating">
+        <span class="rating-score"><%= pacote.score %></span>
+        <span class="rating-stars"><% for (var i=0;i<pacote.stars;i++){ %>★<% } %></span>
+      </span>
+      <p class="pkg-from"><%= pacote.from %> · <%= pacote.nights %></p>
+      <% if (pacote.deal) { %><span class="package-deal"><%= pacote.deal %></span><% } %>
+    </section>
+  </section>
+
+  <section class="pkg-grid">
+    <section class="pkg-main">
+      <p class="pkg-summary"><%= pacote.summary %></p>
+
+      <% if (pacote.highlights && pacote.highlights.length) { %>
+        <section class="pkg-highlights">
+          <h2 class="pkg-section-title">Destaques da viagem</h2>
+          <ul class="pkg-highlight-list">
+            <% pacote.highlights.forEach(function (h) { %><li><span class="hl-ic" aria-hidden="true">★</span><%= h %></li><% }) %>
+          </ul>
+        </section>
+      <% } %>
+
+      <h2 class="pkg-section-title">Roteiro dia a dia</h2>
+      <ol class="pkg-itinerary">
+        <% pacote.itinerary.forEach(function (step) { %><li><%= step %></li><% }) %>
+      </ol>
+
+      <section class="pkg-cols">
+        <section class="pkg-col">
+          <h2 class="pkg-section-title">O que está incluso</h2>
+          <ul class="pkg-includes">
+            <% pacote.includes.forEach(function (it) { %><li><%= it %></li><% }) %>
+          </ul>
+        </section>
+        <% if (pacote.notIncluded && pacote.notIncluded.length) { %>
+        <section class="pkg-col">
+          <h2 class="pkg-section-title">Não está incluso</h2>
+          <ul class="pkg-includes pkg-excludes">
+            <% pacote.notIncluded.forEach(function (it) { %><li><%= it %></li><% }) %>
+          </ul>
+        </section>
+        <% } %>
+      </section>
+
+      <section class="pkg-impact">
+        <h3>Ficha de impacto</h3>
+        <p><%= pacote.impact %></p>
+      </section>
+
+      <% if (pacote.reviews && pacote.reviews.length) { %>
+        <section class="pkg-reviews">
+          <% var soma = pacote.reviews.reduce(function(a,r){return a+r.stars;},0); var media=(soma/pacote.reviews.length).toFixed(1).replace('.',','); %>
+          <h2 class="pkg-section-title">Avaliações <span class="pkg-reviews-avg"><%= media %> ★</span></h2>
+          <% pacote.reviews.forEach(function (r) { %>
+            <figure class="pkg-review">
+              <figcaption class="pkg-review-head">
+                <span class="pkg-review-avatar" aria-hidden="true"><%= r.name.charAt(0).toUpperCase() %></span>
+                <span class="pkg-review-id">
+                  <span class="pkg-review-name"><%= r.name %></span>
+                  <span class="pkg-review-stars"><% for (var j=0;j<r.stars;j++){ %>★<% } %></span>
+                </span>
+              </figcaption>
+              <blockquote><%= r.text %></blockquote>
+            </figure>
+          <% }) %>
+        </section>
+      <% } %>
+    </section>
+
+    <aside class="pkg-aside">
+      <section class="pkg-buy">
+        <span class="package-price-label">Preço por pessoa</span>
+        <p class="package-price"><small>R$</small> <%= pacote.price %></p>
+        <p class="package-tax">Taxas e impostos não inclusos</p>
+        <p class="package-points">Você acumularia <%= pacote.points %> pontos Companion</p>
+        <% var cb = (parseInt(String(pacote.price).replace(/\./g,''),10) * 0.05).toFixed(2).replace('.',','); %>
+        <p class="package-cashback">Cashback de 5%: <strong>R$ <%= cb %></strong></p>
+        <% if (usuario) { %>
+          <form method="POST" action="/carrinho/adicionar-pacote" style="margin:0" id="addCartForm">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <input type="hidden" name="id" value="<%= pacote.id %>" />
+            <button type="submit" class="btn btn--accent btn--full" id="addCartBtn">Adicionar ao carrinho</button>
+          </form>
+          <form method="POST" action="/salvar-pacote" style="margin:.6rem 0 0">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <input type="hidden" name="id" value="<%= pacote.id %>" />
+            <button type="submit" class="package-save" style="width:100%">Salvar para depois</button>
+          </form>
+        <% } else { %>
+          <a href="/conta" class="btn btn--accent btn--full">Entre para comprar</a>
+        <% } %>
+      </section>
+
+      <section class="pkg-facts">
+        <h3>Informações da viagem</h3>
+        <dl class="pkg-facts-list">
+          <dt>Duração</dt><dd><%= pacote.nights %></dd>
+          <dt>Saída</dt><dd><%= pacote.from.replace('Saindo ', '') %></dd>
+          <% if (pacote.bestTime) { %><dt>Melhor época</dt><dd><%= pacote.bestTime %></dd><% } %>
+          <% if (pacote.climate) { %><dt>Clima</dt><dd><%= pacote.climate %></dd><% } %>
+          <dt>Tipo</dt><dd>Hotel + Aéreo</dd>
+        </dl>
+      </section>
+    </aside>
+  </section>
+</main>
+
+<script src="/js/add-cart.js" defer></script>
+<%- include('../partials/footer') %>

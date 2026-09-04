@@ -1,0 +1,5 @@
+node_modules/
+*.db
+.env
+npm-debug.log
+eco-companion-data.json

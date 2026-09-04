@@ -1,0 +1,48 @@
+/* Estilos de passagens */
+
+.btn--search { background: var(--accent); color: #fff; padding: .85rem 2rem; font-size: 1.05rem; }
+.btn--search:hover { background: var(--accent-dark); }
+[data-theme="dark"] .search { background: #0a131c; }
+.search { background: var(--blue-800); padding: 1.5rem var(--gap) 2.5rem; }
+.search-inner { max-width: var(--maxw); margin: 0 auto; }
+.search-title { color: #fff; margin-bottom: 1rem; }
+.search-form { background: transparent; }
+.trip-type { border: 0; padding: 0; margin: 0 0 .9rem; display: flex; gap: 1.4rem; }
+.radio { color: #fff; font-size: .92rem; display: inline-flex; align-items: center; gap: .4rem; cursor: pointer; }
+.radio input { accent-color: var(--accent); }
+.search-row { display: grid; grid-template-columns: 1.3fr auto 1.3fr 1fr 1fr .7fr auto; gap: .6rem; align-items: end; }
+.field { display: flex; flex-direction: column; gap: .25rem; margin: 0; background: var(--surface); border-radius: var(--radius-sm); padding: .55rem .8rem; }
+.field label { font-size: .72rem; font-weight: 600; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .04em; }
+.field input { font: inherit; border: 0; padding: .15rem 0; background: transparent; color: var(--ink); outline: none; width: 100%; }
+.field input::placeholder { color: #9aa8b2; }
+.field--pax { max-width: 110px; }
+.swap { align-self: center; margin-bottom: .4rem; width: 38px; height: 38px; border-radius: 50%; border: 0; background: var(--surface); color: var(--blue-700); font-size: 1.1rem; cursor: pointer; box-shadow: var(--shadow-sm); transition: background-color .18s ease; }
+.swap:hover { background: var(--blue-50); }
+.search-status { color: #fff; margin-top: .9rem; font-size: .92rem; min-height: 1em; }
+.flights { padding: clamp(2rem, 4vw, 3rem) 0; border-top: 1px solid var(--line); }
+.flights-inner { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gap); }
+.flights-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: .4rem; }
+.flights-filters { display: flex; gap: .4rem; flex-wrap: wrap; }
+.flight-filter { font: inherit; font-weight: 600; font-size: .85rem; border: 1.5px solid var(--blue-300); background: transparent; color: var(--blue-700); padding: .45rem .9rem; border-radius: 999px; cursor: pointer; transition: background-color .18s ease, color .18s ease; }
+.flight-filter:hover { background: var(--blue-50); }
+.flight-filter.is-active { background: var(--blue-500); color: #fff; border-color: var(--blue-500); }
+.flights-route { color: var(--ink-soft); font-size: .9rem; margin-bottom: 1.2rem; }
+.flight-list { display: flex; flex-direction: column; gap: .8rem; }
+.flights-intro { padding: clamp(2.5rem, 5vw, 4rem) 0; }
+.flights-intro-inner { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gap); }
+.block-head { margin-bottom: 1.4rem; }
+.block-head--mt { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+.block-head h2 { font-size: clamp(1.4rem, 3vw, 2rem); }
+.block-head p { color: var(--ink-soft); margin-top: .4rem; }
+.popular-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
+.deal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); }
+.deal-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.2rem 1.3rem; box-shadow: var(--shadow-sm); }
+.deal-route { font-weight: 600; color: var(--blue-900); font-size: .95rem; margin-bottom: .5rem; }
+.deal-price { font-size: .9rem; color: var(--ink-soft); }
+.deal-price strong { font-family: var(--font-display); font-size: 1.7rem; color: var(--blue-700); }
+.deal-note { font-size: .82rem; color: var(--ink-soft); margin-top: .4rem; }
+.tips-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap); }
+.tip { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.3rem 1.4rem 1.3rem 3.4rem; box-shadow: var(--shadow-sm); }
+.tip-num { position: absolute; left: 1.3rem; top: 1.3rem; width: 28px; height: 28px; border-radius: 50%; background: var(--blue-500); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: .9rem; }
+.tip h3 { color: var(--blue-900); margin-bottom: .3rem; }
+.tip p { color: var(--ink-soft); font-size: .92rem; }
