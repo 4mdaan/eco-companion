@@ -8,9 +8,10 @@ const session = require("express-session");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 
-const rotas = require("./routes");
+const rotas = require("./app/routes");
 
 const app = express();
+app.set("trust proxy", 1);
 const PORT = process.env.PORT || 3000;
 const EM_PRODUCAO = process.env.NODE_ENV === "production";
 
@@ -35,10 +36,10 @@ app.use(
 
 // view engine EJS
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "app", "views"));
 
 // arquivos estáticos (css, img, js do front)
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "app", "public")));
 
 // body parsers (formulários e JSON)
 app.use(express.urlencoded({ extended: true }));
@@ -75,6 +76,7 @@ const limiteLogin = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   message: "Muitas tentativas. Aguarde alguns minutos e tente novamente.",
+  validate: { default: false },
 });
 app.use("/entrar", limiteLogin);
 app.use("/cadastrar", limiteLogin);
