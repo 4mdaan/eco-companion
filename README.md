@@ -138,33 +138,26 @@ eco-companion/
 ```
 
 ---
+Para instalar as dependencias use:
 
-## 💡 Decisões técnicas
+npm i --save
 
-**Por que MVC?** Separar dados, lógica e apresentação torna o código organizado, fácil de manter e de testar — cada parte tem uma responsabilidade única.
+npm config set strict-ssl false
 
-**Por que EJS?** Permite reaproveitar componentes (cabeçalho, menu, rodapé) em todas as páginas e renderizar dados do servidor diretamente no HTML, evitando repetição.
+npm init
 
-**Por que armazenamento em JSON?** Para o escopo do TCC, evita a complexidade de instalar e configurar um banco externo, mantendo o projeto fácil de rodar em qualquer máquina. A camada de dados é isolada, então trocar por um banco real (PostgreSQL, MySQL) exigiria mudar apenas os models.
+npm install express --save
 
-**Por que CSRF próprio?** Implementar a proteção do zero demonstra compreensão real do mecanismo de ataque e defesa, em vez de apenas usar uma biblioteca pronta.
+npm install ejs --save
 
-**Sobre o pagamento:** o checkout é **simulado** — nenhuma cobrança real é feita. Um pagamento verdadeiro exigiria integração com um gateway (Stripe, Mercado Pago), que trata os dados do cartão com segurança e conformidade (PCI-DSS).
+npm install express-validator --save
 
-## 👤 Acesso administrativo
+npm install dotenv --save
 
-O painel `/admin` é restrito a administradores. Para tornar um usuário admin:
+npm install nodemailer
 
-```bash
-# 1. Cadastre-se normalmente pelo site
-# 2. Rode o script com o e-mail cadastrado
-node scripts/tornar-admin.js seu-email@exemplo.com
-```
+npm install bcryptjs
 
-Depois, o link **Admin** aparece no menu e o painel fica acessível. Usuários comuns que tentarem acessar `/admin` recebem "acesso proibido" (403) — o controle é feito no servidor, não apenas escondendo o link.
+npm install bcrypt
 
----
-
-## 📄 Licença
-
-Projeto acadêmico desenvolvido para fins educacionais.
+npm install multer

@@ -3,13 +3,13 @@
 const express = require("express");
 const router = express.Router();
 
-const pages = require("../app/controllers/pagesController");
-const auth = require("../app/controllers/authController");
-const perfil = require("../app/controllers/perfilController");
-const carrinho = require("../app/controllers/carrinhoController");
-const admin = require("../app/controllers/adminController");
-const soAdmin = require("../app/middlewares/soAdmin");
-const tratarErros = require("../app/utils/tratarErros");
+const pages = require("../controllers/pagesController");
+const auth = require("../controllers/authController");
+const perfil = require("../controllers/perfilController");
+const carrinho = require("../controllers/carrinhoController");
+const admin = require("../controllers/adminController");
+const soAdmin = require("../middlewares/soAdmin");
+const tratarErros = require("../utils/tratarErros");
 
 // envolve cada método de um controller com o tratamento de erros,
 // para que qualquer falha vá ao tratador global em vez de derrubar o app
