@@ -1,0 +1,31 @@
+<%- include('../partials/header', { pagina: 'carrinho' }) %>
+<%- include('../partials/menu') %>
+
+<main class="account is-profile" id="conteudo">
+  <section class="order-done">
+    <span class="order-check" aria-hidden="true">✓</span>
+    <p class="eyebrow">Pedido confirmado</p>
+    <h1>Tudo certo, boa viagem!</h1>
+    <p class="order-sub">Seu pedido <strong>#<%= pedido.id %></strong> foi confirmado. Este é um pedido de demonstração — nenhuma cobrança real foi feita.</p>
+
+    <section class="order-box">
+      <ul class="checkout-items">
+        <% itens.forEach(function (item) { %>
+          <li>
+            <span><%= item.nome %><% if (item.quantidade > 1) { %> ×<%= item.quantidade %><% } %></span>
+            <span>R$ <%= formatBRL(item.preco * item.quantidade) %></span>
+          </li>
+        <% }) %>
+      </ul>
+      <p class="cart-total"><span>Total pago</span> <strong>R$ <%= formatBRL(pedido.total) %></strong></p>
+      <p class="order-pay">Forma de pagamento: <%= pedido.pagamento === 'pix' ? 'Pix' : 'Cartão de crédito' %> (simulado)</p>
+    </section>
+
+    <section class="order-actions">
+      <a class="btn btn--accent" href="/">Voltar ao início</a>
+      <a class="btn btn--ghost" href="/perfil">Ver meu perfil</a>
+    </section>
+  </section>
+</main>
+
+<%- include('../partials/footer') %>

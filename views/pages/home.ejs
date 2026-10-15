@@ -1,0 +1,93 @@
+<%- include('../partials/header', { pagina: 'home' }) %>
+<%- include('../partials/menu') %>
+
+<main id="conteudo">
+  <!-- Boas-vindas -->
+  <section class="home-hero" aria-labelledby="home-title">
+    <section class="home-hero-inner">
+      <h1 id="home-title">Viaje com a pegada à vista</h1>
+      <p>Passagens, hospedagens e pacotes verificados, com o impacto ambiental sempre transparente. Escolha por onde começar.</p>
+      <section class="home-hero-actions">
+        <a class="btn btn--accent" href="/passagens">Buscar passagens</a>
+        <a class="btn btn--ghost-light" href="#pacotes">Ver pacotes</a>
+      </section>
+    </section>
+  </section>
+
+  <!-- Oferta destaque -->
+  <section class="hero-offer" aria-labelledby="offer-title">
+    <section class="hero-offer-inner">
+      <section class="offer-art" aria-hidden="true">
+        <img class="offer-img" src="/img/rio.jpg" alt="" loading="lazy" />
+      </section>
+      <section class="offer-copy">
+        <p class="offer-tag">Voo com compensação de carbono</p>
+        <h2 id="offer-title">Rio de Janeiro</h2>
+        <p class="offer-price"><span>a partir de</span> 4x R$ <strong>113</strong></p>
+        <p class="offer-total">Total: R$ 452 · ida e volta</p>
+        <a class="btn btn--accent" href="#pacotes">Ver oferta</a>
+      </section>
+    </section>
+    <section class="offer-perks">
+      <article class="perk"><h3>Pagamento flexível</h3><p>Parcele no cartão e acompanhe a estimativa de impacto antes de fechar.</p></article>
+      <article class="perk"><h3>Pontos Companion</h3><p>Acumule pontos a cada reserva e troque por descontos em viagens verdes.</p></article>
+      <article class="perk"><h3>Atendimento humano</h3><p>Fale com um agente real por telefone ou chat sempre que precisar.</p></article>
+    </section>
+  </section>
+
+  <!-- Pacotes (renderizados pelo servidor) -->
+  <section class="packages" id="pacotes" aria-labelledby="packages-title">
+    <section class="packages-inner">
+      <header class="packages-head">
+        <h2 id="packages-title">Pacotes para destinos imperdíveis</h2>
+        <p>Hotel + aéreo com a ficha de impacto aberta. Salve no perfil para comparar depois.</p>
+      </header>
+
+      <section class="package-grid" role="list">
+        <% pacotes.forEach(function (p) { %>
+          <article class="package" role="listitem">
+            <a class="package-media" href="/pacote/<%= p.id %>" style="background: <%= p.art %>" aria-label="Ver pacote <%= p.title %>">
+              <% if (p.image) { %><img class="package-img" src="/img/<%= p.image.replace('assets/', '') %>" alt="<%= p.title %>" loading="lazy" /><% } %>
+              <span class="package-nights"><%= p.nights %></span>
+            </a>
+            <section class="package-body">
+              <span class="package-kicker">PACOTE</span>
+              <a class="package-title" href="/pacote/<%= p.id %>"><%= p.title %></a>
+              <span class="package-rating">
+                <span class="rating-score"><%= p.score %></span>
+                <span class="rating-stars" aria-label="<%= p.stars %> estrelas"><% for (var i=0;i<p.stars;i++){ %>★<% } %></span>
+              </span>
+              <span class="package-meta"><%= p.from %></span>
+              <span class="package-meta">Hotel + Aéreo</span>
+              <% if (p.deal) { %><span class="package-deal"><%= p.deal %></span><% } %>
+            </section>
+            <section class="package-foot">
+              <span class="package-price-label">Preço por pessoa</span>
+              <p class="package-price"><small>R$</small> <%= p.price %></p>
+              <p class="package-tax">Taxas e impostos não inclusos</p>
+              <p class="package-points">Você acumularia <%= p.points %> pontos Companion</p>
+              <a class="package-details" href="/pacote/<%= p.id %>">Ver detalhes</a>
+            </section>
+          </article>
+        <% }) %>
+      </section>
+    </section>
+  </section>
+
+  <!-- Faixa promo -->
+  <section class="promo" id="minhas-viagens" aria-labelledby="promo-title">
+    <section class="promo-inner">
+      <section class="promo-text">
+        <h2 id="promo-title">Já tem um destino em mente?</h2>
+        <p>Crie sua conta, salve buscas e receba alertas quando o preço de uma rota verde cair.</p>
+        <a class="btn btn--accent" href="/conta">Criar conta gratuita</a>
+      </section>
+      <section class="promo-badge" aria-hidden="true">
+        <span>Até R$300 off</span>
+        <small>no primeiro pacote</small>
+      </section>
+    </section>
+  </section>
+</main>
+
+<%- include('../partials/footer') %>

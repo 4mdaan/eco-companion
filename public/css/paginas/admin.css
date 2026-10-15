@@ -1,0 +1,38 @@
+/* Estilos do painel admin */
+
+.admin { max-width: 1100px; margin: 0 auto; padding: clamp(1.5rem, 4vw, 3rem) var(--gap); }
+.admin-head { margin-bottom: 1.2rem; }
+.admin-sub { color: var(--ink-soft); margin-top: .3rem; }
+.admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.admin-stat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.4rem 1.5rem; box-shadow: var(--shadow-sm); }
+.admin-stat-num { display: block; font-family: var(--font-display); font-size: 2rem; font-weight: 600; color: var(--blue-900); }
+.admin-stat-label { color: var(--ink-soft); font-size: .88rem; }
+.admin-quick { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+.admin-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.4rem; text-decoration: none; box-shadow: var(--shadow-sm); transition: border-color .18s ease, transform .18s ease; }
+.admin-card:hover { border-color: var(--blue-300); transform: translateY(-2px); }
+.admin-card h2 { color: var(--blue-900); font-size: 1.15rem; margin-bottom: .3rem; }
+.admin-card p { color: var(--ink-soft); font-size: .9rem; }
+.admin-table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+.admin-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.admin-table th { text-align: left; padding: .9rem 1rem; background: var(--blue-50); color: var(--blue-900); font-weight: 600; white-space: nowrap; }
+[data-theme="dark"] .admin-table th { background: #11202e; }
+.admin-table td { padding: .9rem 1rem; border-top: 1px solid var(--line); vertical-align: top; }
+.admin-td-strong { font-weight: 600; color: var(--blue-900); }
+.admin-td-muted { color: var(--ink-soft); font-size: .85rem; }
+.admin-item-line { display: block; font-size: .85rem; }
+.admin-badge { background: var(--rating); color: #fff; font-size: .72rem; font-weight: 700; padding: .15rem .5rem; border-radius: 5px; }
+.admin-toolbar { margin-bottom: 1rem; display: flex; justify-content: flex-end; }
+.admin-flash { background: #e6f5ec; border: 1px solid #b7e0c6; color: #1e6b3e; border-radius: var(--radius-sm); padding: .7rem 1rem; font-size: .9rem; margin-bottom: 1rem; }
+[data-theme="dark"] .admin-flash { background: #16301f; border-color: #2c5138; color: #8fd3a6; }
+.admin-actions { white-space: nowrap; }
+.admin-action-edit { color: var(--blue-700); text-decoration: none; font-weight: 600; font-size: .85rem; margin-right: .8rem; }
+.admin-action-edit:hover { text-decoration: underline; }
+.admin-action-del { background: transparent; border: 0; color: #c0392b; font: inherit; font-weight: 600; font-size: .85rem; cursor: pointer; padding: 0; }
+.admin-action-del:hover { text-decoration: underline; }
+.admin--form { max-width: 820px; }
+.admin-form { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.6rem; box-shadow: var(--shadow-sm); margin-top: 1rem; }
+.admin-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.admin-form label { display: block; font-weight: 600; font-size: .9rem; margin-bottom: .3rem; color: var(--blue-900); }
+.admin-form input, .admin-form textarea { width: 100%; padding: .65rem .8rem; border: 1.5px solid var(--line); border-radius: var(--radius-sm); font: inherit; background: var(--surface); color: var(--ink); resize: vertical; }
+.admin-form input:focus, .admin-form textarea:focus { outline: none; border-color: var(--blue-500); box-shadow: 0 0 0 3px var(--blue-50); }
+.admin-form-actions { display: flex; gap: .8rem; margin-top: .5rem; }

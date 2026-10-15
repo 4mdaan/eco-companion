@@ -1,0 +1,40 @@
+<%- include('../../partials/header', { pagina: 'admin' }) %>
+<%- include('../../partials/menu') %>
+
+<main class="admin" id="conteudo">
+  <header class="admin-head">
+    <p class="eyebrow">Administração</p>
+    <h1>Usuários</h1>
+    <p class="admin-sub"><%= usuarios.length %> conta(s) cadastrada(s).</p>
+  </header>
+  <%- include('../../partials/admin-nav', { pagina: 'usuarios' }) %>
+
+  <section class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>Cidade</th>
+          <th>Tipo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% usuarios.forEach(function (u) { %>
+          <tr>
+            <td><%= u.id %></td>
+            <td class="admin-td-strong"><%= u.nome %></td>
+            <td class="admin-td-muted"><%= u.email %></td>
+            <td><%= u.cidade || '—' %></td>
+            <td>
+              <% if (u.admin) { %><span class="admin-badge">Admin</span><% } else { %>Cliente<% } %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </section>
+</main>
+
+<%- include('../../partials/footer') %>

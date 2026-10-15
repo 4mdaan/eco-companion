@@ -1,0 +1,43 @@
+<%- include('../../partials/header', { pagina: 'admin' }) %>
+<%- include('../../partials/menu') %>
+
+<main class="admin" id="conteudo">
+  <header class="admin-head">
+    <p class="eyebrow">Administração</p>
+    <h1>Painel administrativo</h1>
+    <p class="admin-sub">Visão geral do Eco Companion.</p>
+  </header>
+  <%- include('../../partials/admin-nav', { pagina: 'painel' }) %>
+
+  <section class="admin-stats">
+    <article class="admin-stat">
+      <span class="admin-stat-num"><%= stats.totalUsuarios %></span>
+      <span class="admin-stat-label">Usuários cadastrados</span>
+    </article>
+    <article class="admin-stat">
+      <span class="admin-stat-num"><%= stats.totalPedidos %></span>
+      <span class="admin-stat-label">Pedidos realizados</span>
+    </article>
+    <article class="admin-stat">
+      <span class="admin-stat-num">R$ <%= formatBRL(stats.receita) %></span>
+      <span class="admin-stat-label">Receita simulada</span>
+    </article>
+  </section>
+
+  <section class="admin-quick">
+    <a class="admin-card" href="/admin/pedidos">
+      <h2>Pedidos</h2>
+      <p>Veja todas as compras realizadas no site.</p>
+    </a>
+    <a class="admin-card" href="/admin/usuarios">
+      <h2>Usuários</h2>
+      <p>Lista de contas cadastradas.</p>
+    </a>
+    <a class="admin-card" href="/admin/pacotes">
+      <h2>Pacotes</h2>
+      <p>Catálogo de destinos disponíveis.</p>
+    </a>
+  </section>
+</main>
+
+<%- include('../../partials/footer') %>

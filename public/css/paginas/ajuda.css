@@ -1,0 +1,25 @@
+/* Estilos da ajuda */
+
+.help-hero { background: var(--blue-800); color: #fff; padding: clamp(2.5rem, 6vw, 4rem) var(--gap); }
+[data-theme="dark"] .help-hero { background: #0a131c; }
+.help-hero-inner { max-width: var(--maxw); margin: 0 auto; }
+.help-hero h1 { color: #fff; font-size: clamp(1.9rem, 4vw, 2.8rem); margin-bottom: .5rem; }
+.help-hero p { color: var(--blue-100); max-width: 52ch; }
+.help-body { max-width: var(--maxw); margin: 0 auto; padding: clamp(2rem, 4vw, 3rem) var(--gap); display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
+.chat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); display: flex; flex-direction: column; overflow: hidden; position: sticky; top: 90px; }
+.chat-head { display: flex; align-items: center; gap: .8rem; padding: 1.1rem 1.3rem; border-bottom: 1px solid var(--line); background: var(--blue-50); }
+[data-theme="dark"] .chat-head { background: #11202e; }
+.chat-avatar { width: 42px; height: 42px; border-radius: 50%; background: var(--blue-500); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: .9rem; flex-shrink: 0; }
+.chat-head-text h2 { font-size: 1.05rem; margin: 0; }
+.chat-head-text p { font-size: .82rem; color: var(--ink-soft); margin: 0; }
+.chat-log { padding: 1.2rem; display: flex; flex-direction: column; gap: .8rem; height: 360px; overflow-y: auto; }
+.chat-suggestions { display: flex; flex-wrap: wrap; gap: .4rem; padding: 0 1.2rem .8rem; }
+.chat-chip { font: inherit; font-size: .8rem; font-weight: 500; padding: .35rem .8rem; border-radius: 999px; border: 1.5px solid var(--blue-300); background: transparent; color: var(--blue-700); cursor: pointer; transition: background-color .18s ease, color .18s ease; }
+.chat-chip:hover { background: var(--blue-500); color: #fff; border-color: var(--blue-500); }
+.chat-form { display: flex; gap: .5rem; padding: .9rem 1.2rem; border-top: 1px solid var(--line); }
+.chat-form input { flex: 1; font: inherit; padding: .65rem .85rem; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink); }
+.chat-form input:focus { outline: none; border-color: var(--blue-500); }
+.chat-disclaimer { font-size: .76rem; color: var(--ink-soft); padding: 0 1.2rem 1rem; margin: 0; }
+.help-faq > h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); margin-bottom: 1.2rem; }
+.faq-cat { font-family: var(--font-display); font-size: 1.05rem; color: var(--blue-700); margin: 1.6rem 0 .7rem; text-transform: uppercase; letter-spacing: .04em; }
+.help-contact { margin-top: 1.8rem; color: var(--ink-soft); font-size: .92rem; }

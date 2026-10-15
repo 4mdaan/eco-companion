@@ -1,0 +1,12 @@
+/* Estilos das páginas de texto */
+
+.legal { max-width: 760px; margin: 0 auto; padding: clamp(2rem, 5vw, 3.5rem) var(--gap); }
+.legal h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: .4rem; }
+.legal-updated { color: var(--ink-soft); font-size: .9rem; margin-bottom: 2rem; }
+.legal h2 { font-family: var(--font-display); font-size: 1.3rem; color: var(--blue-900); margin: 2rem 0 .7rem; }
+.legal p { color: var(--ink); margin-bottom: 1rem; line-height: 1.7; }
+.legal ul { margin: 0 0 1rem; padding-left: 1.3rem; display: flex; flex-direction: column; gap: .5rem; color: var(--ink); }
+.legal a { color: var(--blue-700); }
+.legal-note { background: var(--blue-50); border: 1px solid var(--blue-100); border-radius: var(--radius); padding: 1rem 1.2rem; color: var(--ink-soft); font-size: .9rem; margin-bottom: 2rem; }
+[data-theme="dark"] .legal-note { background: var(--blue-50); border-color: var(--line); }
+.legal-back { display: inline-block; margin-top: 1.5rem; }

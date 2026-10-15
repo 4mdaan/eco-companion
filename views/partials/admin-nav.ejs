@@ -1,0 +1,8 @@
+<% var _p = (typeof pagina !== "undefined") ? pagina : ""; %>
+<nav class="admin-nav" aria-label="Navegação do administrador">
+  <a href="/admin" class="admin-nav-link<%= _p === 'painel' ? ' is-active' : '' %>">Visão geral</a>
+  <a href="/admin/pedidos" class="admin-nav-link<%= _p === 'pedidos' ? ' is-active' : '' %>">Pedidos</a>
+  <a href="/admin/usuarios" class="admin-nav-link<%= _p === 'usuarios' ? ' is-active' : '' %>">Usuários</a>
+  <a href="/admin/pacotes" class="admin-nav-link<%= _p === 'pacotes' ? ' is-active' : '' %>">Pacotes</a>
+  <a href="/" class="admin-nav-link admin-nav-back">← Voltar ao site</a>
+</nav>
