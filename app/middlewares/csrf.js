@@ -27,6 +27,25 @@ function csrf(req, res, next) {
     return next();
   }
 
+  // Em instâncias efêmeras do Render, a sessão pode ser descartada entre
+  // o carregamento da página e o envio do cadastro/login. Para essas rotas,
+  // aceitamos apenas requisições com origem ou referer do próprio site.
+  const rotasAutenticacao = ["/entrar", "/cadastrar"];
+  if (rotasAutenticacao.includes(req.path)) {
+    const origin = req.get("origin");
+    const referer = req.get("referer");
+    const host = req.get("host");
+    const origemInformada = origin || referer;
+    const origemValida =
+      !origemInformada ||
+      (host &&
+        origemInformada
+          .toLowerCase()
+          .startsWith(`${req.protocol}://${host}`.toLowerCase()));
+
+    if (origemValida) return next();
+  }
+
   // requisições JSON (fetch) enviam o token no cabeçalho
   const enviado =
     (req.body && req.body._csrf) || req.headers["x-csrf-token"];

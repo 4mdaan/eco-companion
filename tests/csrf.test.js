@@ -70,4 +70,53 @@ describe("Proteção CSRF", () => {
 
     assert.ok(chamouNext, "aceita token via cabeçalho X-CSRF-Token");
   });
+
+  test("cadastro com sessão perdida mas origem válida prossegue", () => {
+    const sessao = {};
+    const req = {
+      method: "POST",
+      path: "/cadastrar",
+      protocol: "https",
+      session: sessao,
+      body: {},
+      headers: { origin: "https://eco-companion.onrender.com" },
+      get(name) {
+        return this.headers[name] || null;
+      },
+    };
+    req.get = function (name) {
+      return this.headers[name] || null;
+    };
+    req.get("host") && null;
+    req.headers.host = "eco-companion.onrender.com";
+    const res = novaResposta();
+    let chamouNext = false;
+    csrf(req, res, () => (chamouNext = true));
+
+    assert.ok(chamouNext);
+  });
+
+  test("cadastro de origem externa continua bloqueado", () => {
+    const sessao = {};
+    const req = {
+      method: "POST",
+      path: "/cadastrar",
+      protocol: "https",
+      session: sessao,
+      body: {},
+      headers: {
+        origin: "https://site-malicioso.example",
+        host: "eco-companion.onrender.com",
+      },
+      get(name) {
+        return this.headers[name] || null;
+      },
+    };
+    const res = novaResposta();
+    let chamouNext = false;
+    csrf(req, res, () => (chamouNext = true));
+
+    assert.ok(!chamouNext);
+    assert.strictEqual(res.statusCode, 403);
+  });
 });
