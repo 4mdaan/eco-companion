@@ -41,7 +41,7 @@ Faça isto **minutos antes** da apresentação:
 8. Adicione outro item para o carrinho ter mais de um.
 9. Vá ao **carrinho**. Mostre os itens, mude a **quantidade** com os botões +/− e destaque o total recalculando na hora.
 10. Clique em **Ir para o pagamento**. Mostre a tela de checkout.
-11. Fale claramente: *"O pagamento é simulado — nenhuma cobrança real é feita. Um pagamento verdadeiro exigiria um gateway como Stripe ou Mercado Pago."*
+11. Fale claramente: *"O pagamento é simulado — nenhuma cobrança real é feita. Uma cobrança real exigiria uma integração futura com um gateway externo."*
 12. Finalize a compra e mostre a **tela de pedido confirmado**.
 
 ### Parte 4 — Área do usuário (1 min)

@@ -79,7 +79,7 @@ Não é pelo site (senão qualquer um se tornaria admin). É por um script rodad
 O carrinho fica salvo no banco, por usuário (exige login). O usuário adiciona pacotes ou voos, ajusta quantidades, e o sistema calcula o total. Ao finalizar, os itens viram um **pedido** e o carrinho é esvaziado. O pedido fica no histórico do perfil.
 
 **P: O pagamento é real?**
-Não. O checkout é **simulado** — tem a tela de cartão e Pix, mas nenhuma cobrança acontece, e há um aviso claro pedindo para não inserir dados reais. Um pagamento verdadeiro exigiria integrar um gateway como Stripe ou Mercado Pago, que trata os dados do cartão com segurança e conformidade (PCI-DSS). Foi uma decisão consciente de escopo.
+Não. O checkout é **simulado** — tem a tela de cartão e Pix, mas nenhuma cobrança acontece, e há um aviso claro pedindo para não inserir dados reais. Uma cobrança real exigiria integrar um gateway externo no futuro, respeitando as regras de segurança e conformidade PCI-DSS. Foi uma decisão consciente de escopo.
 
 **P: O que o admin consegue fazer?**
 Ver estatísticas (usuários, pedidos, receita), listar todos os pedidos e usuários, e gerenciar os pacotes por completo: criar, editar e excluir (CRUD).
