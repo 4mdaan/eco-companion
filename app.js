@@ -54,6 +54,21 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Páginas e respostas de autenticação carregam dados da sessão e CSRF.
+// Elas não podem ser armazenadas em cache pelo proxy/CDN.
+app.use((req, res, next) => {
+  if (
+    req.path === "/conta" ||
+    req.path === "/entrar" ||
+    req.path === "/cadastrar" ||
+    req.path === "/sair" ||
+    req.path === "/perfil"
+  ) {
+    res.set("Cache-Control", "no-store, no-cache, must-revalidate, private");
+  }
+  next();
+});
+
 // ------------------------------------------------------------------
 // Sessões. O cookie usa flags de segurança:
 //  - httpOnly: o cookie não pode ser lido por JavaScript (protege
