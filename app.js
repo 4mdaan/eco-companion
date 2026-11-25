@@ -7,7 +7,6 @@ const express = require("express");
 const session = require("express-session");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
-const FileStore = require("./app/utils/sessionStore");
 
 const rotas = require("./routes");
 
@@ -64,7 +63,9 @@ app.use(express.json());
 // ------------------------------------------------------------------
 app.use(
   session({
-    store: new FileStore(path.join(__dirname, "eco-companion-sessions.json")),
+    // Em serviços com filesystem efêmero, o MemoryStore é mais confiável
+    // para manter o cookie/CSRF da sessão durante a vida da instância.
+    store: new session.MemoryStore(),
     secret: process.env.SESSION_SECRET || "eco-companion-dev-secret",
     resave: false,
     saveUninitialized: true,
