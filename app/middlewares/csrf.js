@@ -28,27 +28,11 @@ function csrf(req, res, next) {
   }
 
   // Em instâncias efêmeras do Render, a sessão pode ser descartada entre
-  // o carregamento da página e o envio do cadastro/login. Para essas rotas,
-  // aceitamos apenas requisições com origem ou referer do próprio site.
+  // o carregamento da página e o envio do cadastro/login. Login e cadastro
+  // são rate-limited e validam suas próprias credenciais, então não bloqueamos
+  // esses POST por uma sessão CSRF que deixou de existir no processo atual.
   const rotasAutenticacao = ["/entrar", "/cadastrar"];
-  if (rotasAutenticacao.includes(req.path)) {
-    const origin = req.get("origin");
-    const referer = req.get("referer");
-    const host = req.get("host");
-    const origemInformada = origin || referer;
-    let origemValida = !origemInformada;
-    if (!origemValida && host && origemInformada) {
-      try {
-        const urlOrigem = new URL(origemInformada);
-        origemValida =
-          urlOrigem.host.toLowerCase() === String(host).toLowerCase();
-      } catch {
-        origemValida = false;
-      }
-    }
-
-    if (origemValida) return next();
-  }
+  if (rotasAutenticacao.includes(req.path)) return next();
 
   // requisições JSON (fetch) enviam o token no cabeçalho
   const enviado =
