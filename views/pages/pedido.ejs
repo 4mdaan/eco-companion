@@ -4,9 +4,9 @@
 <main class="account is-profile" id="conteudo">
   <section class="order-done">
     <span class="order-check" aria-hidden="true">✓</span>
-    <p class="eyebrow">Pedido confirmado</p>
-    <h1>Tudo certo, boa viagem!</h1>
-    <p class="order-sub">Seu pedido <strong>#<%= pedido.id %></strong> foi confirmado. Este é um pedido de demonstração — nenhuma cobrança real foi feita.</p>
+    <p class="eyebrow"><%= pedido.status === 'confirmado' ? 'Pedido confirmado' : 'Pagamento em análise' %></p>
+    <h1><%= pedido.status === 'confirmado' ? 'Tudo certo, boa viagem!' : 'Aguarde a confirmação' %></h1>
+    <p class="order-sub">Seu pedido <strong>#<%= pedido.id %></strong> está <%= pedido.status === 'confirmado' ? 'confirmado pelo Mercado Pago' : 'aguardando a confirmação do pagamento' %>.</p>
 
     <section class="order-box">
       <ul class="checkout-items">
@@ -18,7 +18,7 @@
         <% }) %>
       </ul>
       <p class="cart-total"><span>Total pago</span> <strong>R$ <%= formatBRL(pedido.total) %></strong></p>
-      <p class="order-pay">Forma de pagamento: <%= pedido.pagamento === 'pix' ? 'Pix' : 'Cartão de crédito' %> (simulado)</p>
+      <p class="order-pay">Pagamento processado pelo Mercado Pago.</p>
     </section>
 
     <section class="order-actions">

@@ -10,3 +10,9 @@ services:
         value: production
       - key: SESSION_SECRET
         generateValue: true
+      - key: MP_ACCESS_TOKEN
+        sync: false
+      - key: MP_PUBLIC_KEY
+        sync: false
+      - key: APP_BASE_URL
+        sync: false

@@ -63,6 +63,10 @@ router.post("/carrinho/quantidade", C.atualizarQuantidade);
 router.post("/carrinho/remover/:id", C.remover);
 router.get("/checkout", C.checkout);
 router.post("/checkout", C.finalizar);
+router.get("/pagamento/sucesso", C.pagamentoSucesso);
+router.get("/pagamento/falha", C.pagamentoFalha);
+router.get("/pagamento/pendente", C.pagamentoPendente);
+router.post("/webhooks/mercadopago", C.webhookMercadoPago);
 
 // painel administrativo (todas protegidas pelo middleware soAdmin)
 router.get("/admin", soAdmin, Ad.painel);

@@ -101,6 +101,48 @@ const Carrinho = {
     db._save();
     return pedido;
   },
+
+  criarPendente(usuarioId, pagamento, dadosExternos = {}) {
+    const itens = this.listar(usuarioId);
+    if (!itens.length) return null;
+    const s = state();
+    const pedido = {
+      id: proximoId(s.pedidos),
+      usuario_id: Number(usuarioId),
+      total: this.total(usuarioId),
+      itens_json: JSON.stringify(itens),
+      pagamento,
+      status: "pendente",
+      mercado_pago_preference_id: dadosExternos.preferenceId || null,
+      mercado_pago_payment_id: dadosExternos.paymentId || null,
+      criado_em: new Date().toISOString(),
+    };
+    s.pedidos.push(pedido);
+    db._save();
+    return pedido;
+  },
+
+  atualizarPagamentoMercadoPago(pedidoId, dados) {
+    const pedido = state().pedidos.find((item) => Number(item.id) === Number(pedidoId));
+    if (!pedido) return null;
+    pedido.mercado_pago_payment_id = dados.paymentId || pedido.mercado_pago_payment_id;
+    if (dados.status === "approved") {
+      pedido.status = "confirmado";
+      pedido.pagamento = dados.paymentType === "pix" ? "pix" : "cartao";
+      const s = state();
+      s.carrinho = s.carrinho.filter((item) => Number(item.usuario_id) !== Number(pedido.usuario_id));
+    } else if (dados.status === "cancelled" || dados.status === "rejected") {
+      pedido.status = "cancelado";
+    } else {
+      pedido.status = "pendente";
+    }
+    db._save();
+    return pedido;
+  },
+
+  porId(pedidoId) {
+    return state().pedidos.find((item) => Number(item.id) === Number(pedidoId)) || null;
+  },
   // lista os pedidos de um usuário (histórico), do mais recente ao mais antigo
   pedidosDoUsuario(usuarioId) {
     return db
