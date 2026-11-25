@@ -27,8 +27,6 @@ function csrf(req, res, next) {
     return next();
   }
 
-  if (req.path === "/webhooks/mercadopago") return next();
-
   // Em instâncias efêmeras do Render, a sessão pode ser descartada entre
   // o carregamento da página e o envio do cadastro/login. Login e cadastro
   // são rate-limited e validam suas próprias credenciais, então não bloqueamos

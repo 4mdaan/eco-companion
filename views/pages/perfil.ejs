@@ -137,7 +137,7 @@
               <% }) %>
             </ul>
             <footer class="order-card-foot">
-              Pagamento: Mercado Pago · <span class="order-card-status"><%= pedido.status === 'confirmado' ? 'Confirmado' : pedido.status === 'cancelado' ? 'Cancelado' : 'Pendente' %></span>
+              Pagamento: <%= pedido.pagamento === 'pix' ? 'Pix' : 'Cartão' %> · <span class="order-card-status">Confirmado</span>
             </footer>
           </article>
         <% }) %>

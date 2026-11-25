@@ -149,7 +149,7 @@ eco-companion/
 
 **Por que CSRF próprio?** Implementar a proteção do zero demonstra compreensão real do mecanismo de ataque e defesa, em vez de apenas usar uma biblioteca pronta.
 
-**Sobre o pagamento:** o checkout pode ser integrado ao Mercado Pago Checkout Pro por meio de `MP_ACCESS_TOKEN`. O Mercado Pago trata os dados sensíveis de cartão e PIX; o Eco Companion recebe apenas confirmações por webhook.
+**Sobre o pagamento:** o checkout é **simulado** — nenhuma cobrança real é feita. Um pagamento verdadeiro exigiria integração com um gateway (Stripe, Mercado Pago), que trata os dados do cartão com segurança e conformidade (PCI-DSS).
 
 ## 👤 Acesso administrativo
 

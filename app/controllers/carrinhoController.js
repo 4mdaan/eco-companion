@@ -2,7 +2,6 @@
 
 const Carrinho = require("../models/Carrinho");
 const Pacote = require("../models/Pacote");
-const mercadoPago = require("../services/mercadoPago");
 
 function precoNumero(precoStr) {
   return parseInt(String(precoStr).replace(/\./g, "").replace(/[^\d]/g, ""), 10) || 0;
@@ -123,106 +122,16 @@ const carrinhoController = {
   finalizar(req, res) {
     const sessao = req.session.usuario;
     if (!sessao) return res.redirect("/conta");
-    const pedido = Carrinho.criarPendente(sessao.id, "mercado_pago");
+    const pagamento = req.body.pagamento === "pix" ? "pix" : "cartao";
+    const pedido = Carrinho.finalizar(sessao.id, pagamento);
     if (!pedido) return res.redirect("/carrinho");
-
-    const itens = JSON.parse(pedido.itens_json);
-    const baseUrl = (process.env.APP_BASE_URL || `${req.protocol}://${req.get("host")}`).replace(/\/$/, "");
-
-    mercadoPago.criarPreferencia({
-      pedido,
-      usuario: sessao,
-      itens,
-      baseUrl,
-    }).then((preferencia) => {
-      const s = require("../../config/database")._getState();
-      const armazenado = s.pedidos.find((item) => Number(item.id) === Number(pedido.id));
-      if (armazenado) {
-        armazenado.mercado_pago_preference_id = preferencia.id;
-        require("../../config/database")._save();
-      }
-      res.redirect(preferencia.init_point);
-    }).catch((erro) => {
-      console.error("Erro Mercado Pago:", erro.message);
-      res.status(503).render("pages/erro", {
-        titulo: "Pagamento indisponível",
-        cabecalho: "Pagamento não iniciado",
-        mensagem: "O Mercado Pago não está configurado ou está temporariamente indisponível. Tente novamente.",
-        usuario: sessao,
-      });
-    });
-  },
-
-  async pagamentoSucesso(req, res) {
-    const sessao = req.session.usuario;
-    const pedidoId = req.query.external_reference;
-    const paymentId = req.query.payment_id;
-    if (!sessao || !pedidoId) return res.redirect("/conta");
-
-    const pedido = Carrinho.porId(pedidoId);
-    if (!pedido || Number(pedido.usuario_id) !== Number(sessao.id)) return res.redirect("/perfil");
-
-    if (paymentId) {
-      try {
-        const pagamento = await mercadoPago.consultarPagamento(paymentId);
-        Carrinho.atualizarPagamentoMercadoPago(pedidoId, {
-          paymentId,
-          status: pagamento.status,
-          paymentType: pagamento.payment_type_id,
-        });
-      } catch (erro) {
-        console.error("Erro ao consultar pagamento aprovado:", erro.message);
-      }
-    }
-
-    const atualizado = Carrinho.porId(pedidoId);
-    const itens = JSON.parse(atualizado.itens_json || "[]");
     res.render("pages/pedido", {
-      titulo: atualizado.status === "confirmado" ? "Pedido confirmado" : "Pagamento em análise",
+      titulo: "Pedido confirmado",
       usuario: sessao,
-      pedido: atualizado,
-      itens,
+      pedido,
+      itens: JSON.parse(pedido.itens_json),
       formatBRL,
     });
-  },
-
-  pagamentoFalha(req, res) {
-    res.render("pages/erro", {
-      titulo: "Pagamento não aprovado",
-      cabecalho: "Pagamento não aprovado",
-      mensagem: "O Mercado Pago não aprovou o pagamento. Nenhuma cobrança foi confirmada.",
-      usuario: req.session.usuario || null,
-    });
-  },
-
-  pagamentoPendente(req, res) {
-    res.render("pages/erro", {
-      titulo: "Pagamento pendente",
-      cabecalho: "Pagamento em análise",
-      mensagem: "Seu pagamento está pendente. Ele será confirmado automaticamente após a aprovação.",
-      usuario: req.session.usuario || null,
-    });
-  },
-
-  async webhookMercadoPago(req, res) {
-    res.status(200).send("OK");
-    if (req.body && req.body.type !== "payment") return;
-
-    const paymentId = req.body.data && req.body.data.id;
-    if (!paymentId) return;
-
-    try {
-      const pagamento = await mercadoPago.consultarPagamento(paymentId);
-      const pedidoId = pagamento.external_reference;
-      if (!pedidoId) return;
-      Carrinho.atualizarPagamentoMercadoPago(pedidoId, {
-        paymentId,
-        status: pagamento.status,
-        paymentType: pagamento.payment_type_id,
-      });
-    } catch (erro) {
-      console.error("Erro no webhook Mercado Pago:", erro.message);
-    }
   },
 };
 
