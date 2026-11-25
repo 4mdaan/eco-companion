@@ -50,3 +50,15 @@ a.package-title:hover { color: var(--blue-600); text-decoration: underline; }
 .home-hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.6rem; }
 .btn--ghost-light { background: transparent; color: #fff; border-color: rgba(255,255,255,.4); }
 .btn--ghost-light:hover { background: rgba(255,255,255,.12); }
+
+@media (max-width: 1000px) {
+  .package-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .hero-offer-inner { grid-template-columns: 1fr; }
+  .offer-art { min-height: 170px; }
+  .offer-perks { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .package-grid { grid-template-columns: 1fr; }
+}

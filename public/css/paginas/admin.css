@@ -36,3 +36,7 @@
 .admin-form input, .admin-form textarea { width: 100%; padding: .65rem .8rem; border: 1.5px solid var(--line); border-radius: var(--radius-sm); font: inherit; background: var(--surface); color: var(--ink); resize: vertical; }
 .admin-form input:focus, .admin-form textarea:focus { outline: none; border-color: var(--blue-500); box-shadow: 0 0 0 3px var(--blue-50); }
 .admin-form-actions { display: flex; gap: .8rem; margin-top: .5rem; }
+
+@media (max-width: 620px) {
+  .admin-form-grid { grid-template-columns: 1fr; }
+}

@@ -37,3 +37,11 @@
 .order-card-items li { color: var(--ink); font-size: .9rem; }
 .order-card-foot { color: var(--ink-soft); font-size: .85rem; border-top: 1px solid var(--line); padding-top: .6rem; }
 .order-card-status { color: var(--rating); font-weight: 600; }
+
+@media (max-width: 760px) {
+  .profile-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .cashback-action { width: 100%; }
+  .cashback-action .btn { width: 100%; }
+}
