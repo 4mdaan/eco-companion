@@ -44,4 +44,11 @@
 @media (max-width: 560px) {
   .cashback-action { width: 100%; }
   .cashback-action .btn { width: 100%; }
+  .profile-head { align-items: flex-start; }
+  .profile-id { min-width: 0; flex-basis: calc(100% - 76px); }
+  .points-badge { margin-left: 76px; }
+  .panel { padding: 1.1rem; }
+  .saved-item { align-items: flex-start; flex-direction: column; }
+  .order-card-head { align-items: flex-start; }
+  .order-card-total { margin-left: 0; width: 100%; }
 }

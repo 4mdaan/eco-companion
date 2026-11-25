@@ -55,4 +55,9 @@
 }
 @media (max-width: 620px) {
   .pkg-cols { grid-template-columns: 1fr; }
+  .pkg-hero { min-height: 220px; }
+  .pkg-buy { padding: 1.1rem; }
+  .pkg-facts-list { grid-template-columns: minmax(90px, auto) 1fr; }
+  .pkg-review { padding: 1rem; }
+  .breadcrumb { line-height: 1.7; }
 }

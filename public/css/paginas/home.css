@@ -58,7 +58,17 @@ a.package-title:hover { color: var(--blue-600); text-decoration: underline; }
   .hero-offer-inner { grid-template-columns: 1fr; }
   .offer-art { min-height: 170px; }
   .offer-perks { grid-template-columns: 1fr; }
+  .offer-copy { padding: clamp(1.2rem, 5vw, 1.8rem); }
+  .home-hero-actions { flex-direction: column; align-items: stretch; }
+  .home-hero-actions .btn { width: 100%; }
+  .promo-inner { align-items: flex-start; }
 }
 @media (max-width: 560px) {
   .package-grid { grid-template-columns: 1fr; }
+  .hero-offer { margin-top: -.8rem; }
+  .offer-copy h2 { font-size: 1.8rem; }
+  .offer-price strong { font-size: 1.65rem; }
+  .perk { padding: 1rem; }
+  .promo-inner { flex-direction: column; }
+  .promo-badge { width: 100%; }
 }

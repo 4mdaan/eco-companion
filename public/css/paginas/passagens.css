@@ -63,4 +63,10 @@
   .search-row { grid-template-columns: 1fr; }
   .search-row .swap, .btn--search { grid-column: auto; width: 100%; border-radius: var(--radius-sm); }
   .popular-grid, .deal-grid, .tips-grid { grid-template-columns: 1fr; }
+  .trip-type { gap: .8rem; flex-wrap: wrap; }
+  .flights-head { align-items: flex-start; flex-direction: column; }
+  .flights-filters { width: 100%; }
+  .flight-filter { flex: 1 1 140px; }
+  .flight-time { flex-wrap: wrap; }
+  .tip { padding-right: 1.1rem; }
 }

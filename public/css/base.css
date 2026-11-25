@@ -33,12 +33,14 @@
   --font-body: "Inter", system-ui, -apple-system, sans-serif;
 }
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 120px; }
+html { scroll-behavior: smooth; scroll-padding-top: 120px; width: 100%; overflow-x: hidden; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
 }
-body { margin: 0; font-family: var(--font-body); color: var(--ink); background: var(--bg); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+body { margin: 0; min-width: 0; max-width: 100%; overflow-x: hidden; font-family: var(--font-body); color: var(--ink); background: var(--bg); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+main, section, article, aside, nav, header, footer { min-width: 0; }
+input, select, textarea, button { max-width: 100%; }
 :root { color-scheme: light; }
 body, .topbar, .producttabs, .search, .package, .panel, .pkg-buy,
 .site-footer, .promo-inner, .field, .form-field input, .form-field select {
@@ -331,6 +333,8 @@ img, svg { max-width: 100%; display: block; }
 }
 @media (max-width: 760px) {
   .topbar-menu-toggle { display: inline-flex; }
+  .topbar-inner { position: relative; }
+  .brand-name { font-size: 1.08rem; }
   .topbar-links {
     display: none;
     position: absolute;
@@ -343,6 +347,8 @@ img, svg { max-width: 100%; display: block; }
     padding: .6rem var(--gap) 1rem;
     background: var(--blue-800);
     box-shadow: var(--shadow);
+    max-height: calc(100vh - 58px);
+    overflow-y: auto;
   }
   .topbar-links.is-open { display: flex; }
   .topbar-links .topbar-link { display: block; padding: .65rem .5rem; }
@@ -354,6 +360,13 @@ img, svg { max-width: 100%; display: block; }
 @media (max-width: 560px) {
   .footer-inner { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .topbar-inner { padding-inline: .8rem; gap: .6rem; }
+  .brand { gap: .35rem; }
+  .brand-mark { width: 24px; height: 24px; }
+  .brand-name { font-size: 1rem; }
+  .topbar-menu-toggle { width: 38px; height: 38px; }
+  .btn { padding-inline: 1.1rem; }
+  .chat-bubble { max-width: 92%; }
 }
 @media (max-width: 620px) {
   .admin-form-grid { grid-template-columns: 1fr; }

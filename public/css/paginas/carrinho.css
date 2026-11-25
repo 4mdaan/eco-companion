@@ -50,9 +50,13 @@
   .cart-summary { position: static; }
 }
 @media (max-width: 560px) {
-  .cart-item { grid-template-columns: minmax(0, 1fr) auto; gap: .6rem; }
-  .cart-item-price { grid-column: 1; }
+  .cart-item { grid-template-columns: minmax(0, 1fr) auto; gap: .8rem; }
+  .cart-item-info { grid-column: 1 / -1; }
+  .cart-item-price { grid-column: 1; align-self: center; }
+  .cart-item-remove { grid-column: 2; justify-self: end; }
   .pay-row { grid-template-columns: 1fr; }
+  .cart-summary, .checkout-form { padding: 1.1rem; }
+  .checkout-items li { gap: .5rem; }
 }
 @media (max-width: 480px) {
   .cart-toast { left: 1rem; right: 1rem; bottom: 1rem; justify-content: center; }

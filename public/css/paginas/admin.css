@@ -39,4 +39,9 @@
 
 @media (max-width: 620px) {
   .admin-form-grid { grid-template-columns: 1fr; }
+  .admin-form { padding: 1.1rem; }
+  .admin-form-actions { flex-direction: column; }
+  .admin-form-actions .btn { width: 100%; }
+  .admin-toolbar { justify-content: stretch; }
+  .admin-toolbar .btn { width: 100%; }
 }
