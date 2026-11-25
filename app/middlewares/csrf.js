@@ -36,12 +36,16 @@ function csrf(req, res, next) {
     const referer = req.get("referer");
     const host = req.get("host");
     const origemInformada = origin || referer;
-    const origemValida =
-      !origemInformada ||
-      (host &&
-        origemInformada
-          .toLowerCase()
-          .startsWith(`${req.protocol}://${host}`.toLowerCase()));
+    let origemValida = !origemInformada;
+    if (!origemValida && host && origemInformada) {
+      try {
+        const urlOrigem = new URL(origemInformada);
+        origemValida =
+          urlOrigem.host.toLowerCase() === String(host).toLowerCase();
+      } catch {
+        origemValida = false;
+      }
+    }
 
     if (origemValida) return next();
   }
