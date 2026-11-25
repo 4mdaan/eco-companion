@@ -40,7 +40,10 @@ const authController = {
       });
     }
     req.session.usuario = { id: user.id, nome: user.nome, email: user.email };
-    res.redirect("/perfil");
+    req.session.save((erroSessao) => {
+      if (erroSessao) throw erroSessao;
+      res.redirect("/perfil");
+    });
   },
 
   // POST /cadastrar
@@ -60,7 +63,10 @@ const authController = {
     }
     const user = Usuario.criar({ nome: nome.trim(), email, senha });
     req.session.usuario = { id: user.id, nome: user.nome, email: user.email };
-    res.redirect("/perfil");
+    req.session.save((erroSessao) => {
+      if (erroSessao) throw erroSessao;
+      res.redirect("/perfil");
+    });
   },
 
   // POST /sair

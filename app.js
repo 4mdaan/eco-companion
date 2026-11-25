@@ -15,6 +15,11 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const EM_PRODUCAO = process.env.NODE_ENV === "production";
 
+// Render termina o HTTPS em um proxy reverso. Sem trust proxy, Express não
+// reconhece a conexão original como segura e o cookie de sessão pode não ser
+// enviado/em produção.
+if (EM_PRODUCAO) app.set("trust proxy", 1);
+
 // ------------------------------------------------------------------
 // Segurança: Helmet adiciona cabeçalhos HTTP que protegem contra
 // ataques comuns (clickjacking, sniffing de MIME, etc.).
@@ -63,6 +68,7 @@ app.use(
     secret: process.env.SESSION_SECRET || "eco-companion-dev-secret",
     resave: false,
     saveUninitialized: false,
+    proxy: EM_PRODUCAO,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 dias
       httpOnly: true,
