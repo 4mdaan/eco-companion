@@ -67,13 +67,15 @@ app.use(
     store: new FileStore(path.join(__dirname, "eco-companion-sessions.json")),
     secret: process.env.SESSION_SECRET || "eco-companion-dev-secret",
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     proxy: EM_PRODUCAO,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 dias
       httpOnly: true,
       sameSite: "lax",
-      secure: EM_PRODUCAO,
+      // O Render disponibiliza HTTPS pelo proxy; evitar secure:true aqui
+      // impede que o cookie seja descartado antes da requisição chegar ao app.
+      secure: false,
     },
   })
 );
