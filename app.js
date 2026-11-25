@@ -27,6 +27,7 @@ app.use(
         defaultSrc: ["'self'"],
         styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
         fontSrc: ["'self'", "https://fonts.gstatic.com"],
+        connectSrc: ["'self'", "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
         imgSrc: ["'self'", "data:"],
         scriptSrc: ["'self'"],
       },
@@ -39,6 +40,10 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 // arquivos estáticos (css, img, js do front)
+app.use("/css", (req, res, next) => {
+  res.set("Cache-Control", "no-cache");
+  next();
+});
 app.use(express.static(path.join(__dirname, "public")));
 
 // body parsers (formulários e JSON)
